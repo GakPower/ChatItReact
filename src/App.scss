@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Lobster&family=Josefin+Sans&display=swap");
+:root {
+  --primary: #2a2b2a;
+  --secondary: #313231;
+  --accent: #ff8966;
+  --accentRipple: #ff8a667a;
+  --text: #656354;
+  --primaryFont: "Lobster", cursive;
+  --secondaryFont: "Josefin Sans", sans-serif;
+}
+
+.App {
+  background-color: var(--secondary);
+  width: 100vw;
+  height: 100vh;
+
+  font-family: var(--secondaryFont);
+
+  user-select: none;
+}
