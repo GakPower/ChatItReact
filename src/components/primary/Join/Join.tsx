@@ -19,7 +19,27 @@ export const Join = () => {
 					type='text'
 					placeholder='Username'
 				/>
-				<button type='submit'>Submit</button>
+				<Field
+					register={register}
+					name='email'
+					type='text'
+					placeholder='Email'
+				/>
+				<Field
+					register={register}
+					name='password'
+					type='password'
+					placeholder='Password'
+				/>
+				<Field
+					register={register}
+					name='passConfirm'
+					type='password'
+					placeholder='Confirm Password'
+				/>
+				<button id='submit' type='submit'>
+					Submit
+				</button>
 			</form>
 		</div>
 	);

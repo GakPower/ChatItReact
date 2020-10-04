@@ -1,30 +1,57 @@
 #field {
-    // position: relative;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
 
+    width: 70%;
+    height: 40px;
+
+    margin: 10px 0;
+
     input {
+        position: absolute;
+        height: 100%;
+        width: 100%;
         border-radius: 10px;
-        padding: 10px;
-        margin: 10px 0;
+        padding-left: 10px;
         background-color: var(--primaryLight);
-        border: 0;
+        border: 1px solid var(--accentHighlight);
         color: var(--text);
         font-family: var(--secondaryFont);
 
         box-shadow: none;
 
-        width: 80%;
-
         transition: box-shadow 400ms;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             box-shadow: 0 0 2px var(--accent), inset 0 0 2px var(--accent);
         }
 
         &::selection {
             background-color: var(--accentHighlight);
+        }
+    }
+
+    .toggle {
+        z-index: 1;
+        position: absolute;
+        right: 0;
+
+        width: 30px;
+        height: 30px;
+
+        border: 0;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: var(--text);
+
+        &:focus {
+            box-shadow: none;
+        }
+        &:hover {
+            box-shadow: 0 0 1px var(--accentHighlight), inset 0 0 1px var(--accentHighlight);
         }
     }
 }
