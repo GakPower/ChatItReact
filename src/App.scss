@@ -9,7 +9,7 @@
   --secondaryFont: "Josefin Sans", sans-serif;
 }
 
-.App {
+#App {
   background-color: var(--secondary);
   width: 100vw;
   height: 100vh;
@@ -17,4 +17,11 @@
   font-family: var(--secondaryFont);
 
   user-select: none;
+
+  #switchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 70px);
+  }
 }

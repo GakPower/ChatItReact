@@ -1,15 +1,22 @@
 import React from 'react';
 import './App.scss';
-import { BrowserRouter } from 'react-router-dom';
-import { NavBar } from './app/components/secondary/navBar/NavBar';
+import { NavBar } from './components/secondary/NavBar/NavBar';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { Login } from './components/primary/Login/Login';
+import { Join } from './components/primary/Join/Join';
 
 function App() {
 	return (
-		<BrowserRouter>
-			<div className='App'>
-				<NavBar />
+		<div id='App'>
+			<NavBar />
+			<div id='switchContainer'>
+				<Switch>
+					<Route path='/login' component={Login} />
+					<Route path='/join' component={Join} />
+					<Redirect to='/login' />
+				</Switch>
 			</div>
-		</BrowserRouter>
+		</div>
 	);
 }
 
