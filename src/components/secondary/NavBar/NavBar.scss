@@ -1,4 +1,4 @@
-.navBar {
+#navBar {
     height: 70px;
     background-color: var(--primary);
   
@@ -8,13 +8,14 @@
   
     padding: 0 10px;
   
-    h2 {
+    a {
       color: var(--accent);
       font-family: var(--primaryFont);
       font-size: 3rem;
       font-weight: 500;
   
       cursor: pointer;
+      text-decoration: none;
     }
     div {
       height: 100%;
@@ -23,16 +24,16 @@
       justify-content: center;
       margin-right: 15px;
   
-      button {
+      a {
+        display: flex;
+        align-items: center;
         position: relative;
         height: 100%;
         padding: 0 20px;
-        background-color: transparent;
-        border: none;
         color: var(--accent);
         font-family: var(--secondaryFont);
         font-size: 1.1rem;
-        cursor: pointer;
+        text-decoration: none;
   
         &::before {
           content: "";

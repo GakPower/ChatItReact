@@ -1,13 +1,14 @@
 import React from 'react';
 import './NavBar.scss';
+import { Link } from 'react-router-dom';
 
 export const NavBar = () => {
 	return (
-		<nav className='navBar'>
-			<h2 onClick={() => window.open('/', '_parent')}>ChatIt</h2>
+		<nav id='navBar'>
+			<Link to='/'>ChatIt</Link>
 			<div>
-				<button>Login</button>
-				<button>Join</button>
+				<Link to='/login'>Login</Link>
+				<Link to='/join'>Join</Link>
 			</div>
 		</nav>
 	);
