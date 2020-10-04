@@ -11,7 +11,7 @@
     a {
       color: var(--accent);
       font-family: var(--primaryFont);
-      font-size: 3rem;
+      font-size: 2rem;
       font-weight: 500;
   
       cursor: pointer;
@@ -22,17 +22,16 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 15px;
   
       a {
         display: flex;
         align-items: center;
         position: relative;
         height: 100%;
-        padding: 0 20px;
+        padding: 0 10px;
         color: var(--accent);
         font-family: var(--secondaryFont);
-        font-size: 1.1rem;
+        font-size: 1rem;
         text-decoration: none;
   
         &::before {
