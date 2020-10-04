@@ -1,0 +1,30 @@
+#field {
+    // position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    input {
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px 0;
+        background-color: var(--primaryLight);
+        border: 0;
+        color: var(--text);
+        font-family: var(--secondaryFont);
+
+        box-shadow: none;
+
+        width: 80%;
+
+        transition: box-shadow 400ms;
+
+        &:hover, &:focus {
+            box-shadow: 0 0 2px var(--accent), inset 0 0 2px var(--accent);
+        }
+
+        &::selection {
+            background-color: var(--accentHighlight);
+        }
+    }
+}
