@@ -1,14 +1,16 @@
 import React from 'react';
+import './Field.scss';
 
 interface Props {
+	register: any;
 	type: string;
+	name: string;
+	placeholder: string;
 }
-const Field = ({ type }: Props) => {
+export const Field = ({ register, type, name, placeholder }: Props) => {
 	return (
 		<div id='field'>
-			<input type={type} />
+			<input ref={register} name={name} type={type} placeholder={placeholder} />
 		</div>
 	);
 };
-
-export default Field;
