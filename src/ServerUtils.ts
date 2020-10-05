@@ -7,7 +7,7 @@ export const registerUser = ({
 	email: string;
 	password: string;
 }) => {
-	return fetch('localhost:5000/register', {
+	return fetch('http://localhost:5000/register', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
