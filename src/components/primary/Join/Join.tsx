@@ -41,7 +41,13 @@ export const Join = () => {
 			<h3>Join</h3>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Field
-					register={register({ required: 'Username is required' })}
+					register={register({
+						required: 'Username is required',
+						maxLength: {
+							value: 255,
+							message: 'Username is too long',
+						},
+					})}
 					shouldCheck={shouldCheck}
 					invalid={errors?.username}
 					name='username'
@@ -51,6 +57,10 @@ export const Join = () => {
 				<Field
 					register={register({
 						required: 'Email is required',
+						maxLength: {
+							value: 255,
+							message: 'Email is too long',
+						},
 						pattern: { value: emailRegex, message: 'Invalid Email input' },
 					})}
 					shouldCheck={shouldCheck}
