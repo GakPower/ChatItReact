@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
+import { registerUser } from '../../../ServerUtils';
 import './Join.scss';
 
 interface FormInput {
@@ -32,8 +33,19 @@ export const Join = () => {
 		return <p>{error}</p>;
 	};
 
-	const onSubmit = async (data: any) => {
-		console.log(data);
+	const onSubmit = async ({
+		username,
+		email,
+		password,
+	}: {
+		username: string;
+		email: string;
+		password: string;
+	}) => {
+		registerUser({ username, email, password })
+			.then((res) => res.json())
+			.then((res) => console.log(res))
+			.catch((error) => console.log(error));
 	};
 
 	return (
