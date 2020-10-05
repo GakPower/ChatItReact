@@ -6,16 +6,33 @@ interface Props {
 	type: string;
 	name: string;
 	placeholder: string;
+	invalid: any;
+	shouldCheck: boolean;
 }
-export const Field = ({ register, type, name, placeholder }: Props) => {
+export const Field = ({
+	register,
+	type,
+	name,
+	placeholder,
+	invalid,
+	shouldCheck,
+}: Props) => {
 	const [passShown, setPassShown] = useState(false);
+
+	const getClasses = () => {
+		const classes = [];
+		if (shouldCheck) classes.push(invalid ? 'invalid' : 'valid');
+		return classes.join(' ');
+	};
 	return (
-		<div id='field'>
+		<div id='field' className={getClasses()}>
 			<input
+				className={type === 'password' ? 'pass' : ''}
 				ref={register}
 				name={name}
 				type={passShown && type === 'password' ? 'text' : type}
 				placeholder={placeholder}
+				defaultValue=''
 			/>
 
 			{type === 'password' && (
