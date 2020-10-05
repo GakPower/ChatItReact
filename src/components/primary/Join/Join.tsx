@@ -12,12 +12,10 @@ interface FormInput {
 
 export const Join = () => {
 	const [shouldCheck, setShouldCheck] = useState(false);
-	const { register, handleSubmit, errors, watch } = useForm<FormInput>();
-	const passwordWatch = watch('password', '');
-	const onSubmit = (data: any) => {
-		console.log(data);
-	};
 
+	const { register, handleSubmit, errors, watch } = useForm<FormInput>();
+
+	const passwordWatch = watch('password', '');
 	const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/i;
 
 	const renderErrors = () => {
@@ -32,6 +30,10 @@ export const Join = () => {
 			error = 'Passwords do not match';
 		}
 		return <p>{error}</p>;
+	};
+
+	const onSubmit = async (data: any) => {
+		console.log(data);
 	};
 
 	return (
