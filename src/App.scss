@@ -8,14 +8,17 @@
   --primaryDisabled: #454645;
   --accent: #ff8966;
   --accentRipple: #ff8a667a;
+  --accentHighRipple: #ff8a66af;
   --accentMidRipple: #ff8a6691;
 
   --accentHighlight: rgba(255, 138, 102, 0.2);
+  --accentLowHighlight: rgba(255, 138, 102, 0.15);
   --accentSecondary: #e5446d;
   
   --text: #918d7b;
 
   --error: #a60000;
+  --success: #00c400be;
 }
 
 #App {
