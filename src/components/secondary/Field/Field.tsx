@@ -40,6 +40,7 @@ export const Field = ({
 					className='toggle'
 					type='button'
 					onClick={() => setPassShown((oldValue) => !oldValue)}
+					tabIndex={-1}
 				>
 					{passShown ? 'H' : 'S'}
 				</button>
