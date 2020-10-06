@@ -1,3 +1,5 @@
+const SERVER_IP = 'http://localhost:5000';
+
 export const registerUser = ({
 	username,
 	email,
@@ -7,7 +9,7 @@ export const registerUser = ({
 	email: string;
 	password: string;
 }) => {
-	return fetch('http://localhost:5000/join', {
+	return fetch(`${SERVER_IP}/join`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -25,7 +27,7 @@ export const loginUser = (
 	usernameLogin: boolean
 ) => {
 	const fieldToPass = usernameLogin ? { username } : { email };
-	return fetch('http://localhost:5000/login', {
+	return fetch(`${SERVER_IP}/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
