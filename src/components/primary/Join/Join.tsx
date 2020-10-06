@@ -14,7 +14,9 @@ interface FormInput {
 export const Join = () => {
 	const [shouldCheck, setShouldCheck] = useState(false);
 
-	const { register, handleSubmit, errors, watch } = useForm<FormInput>();
+	const { register, handleSubmit, errors, watch, reset, setError } = useForm<
+		FormInput
+	>();
 
 	const passwordWatch = watch('password', '');
 	const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/i;
@@ -44,7 +46,21 @@ export const Join = () => {
 	}) => {
 		registerUser({ username, email, password })
 			.then((res) => res.json())
-			.then((res) => console.log(res))
+			.then((res) => {
+				if (res.valid) {
+					reset();
+					setShouldCheck(false);
+				} else {
+					if (res.field) {
+						setError(res.field, {
+							type: 'manual',
+							message: res.message,
+						});
+					} else {
+						console.log(res);
+					}
+				}
+			})
 			.catch((error) => console.log(error));
 	};
 
