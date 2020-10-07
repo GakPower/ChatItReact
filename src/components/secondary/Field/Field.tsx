@@ -6,8 +6,8 @@ interface Props {
 	type: string;
 	name: string;
 	placeholder: string;
-	invalid: any;
-	shouldCheck: boolean;
+	invalid?: any;
+	shouldCheck?: boolean;
 }
 export const Field = ({
 	register,
@@ -15,7 +15,7 @@ export const Field = ({
 	name,
 	placeholder,
 	invalid,
-	shouldCheck,
+	shouldCheck = false,
 }: Props) => {
 	const [passShown, setPassShown] = useState(false);
 
