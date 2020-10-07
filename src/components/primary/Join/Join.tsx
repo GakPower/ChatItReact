@@ -13,6 +13,7 @@ interface FormInput {
 
 export const Join = () => {
 	const [shouldCheck, setShouldCheck] = useState(false);
+	const [disabled, setDisabled] = useState(false);
 
 	const { register, handleSubmit, errors, watch, reset, setError } = useForm<
 		FormInput
@@ -44,24 +45,29 @@ export const Join = () => {
 		email: string;
 		password: string;
 	}) => {
-		registerUser({ username, email, password })
-			.then((res) => res.json())
-			.then((res) => {
-				if (res.valid) {
-					reset();
-					setShouldCheck(false);
-				} else {
-					if (res.field) {
-						setError(res.field, {
-							type: 'manual',
-							message: res.message,
-						});
+		setDisabled(true);
+		setTimeout(() => {
+			registerUser({ username, email, password })
+				.then((res) => res.json())
+				.then((res) => {
+					if (res.valid) {
+						reset();
+						setShouldCheck(false);
+						// NAVIGATE TO APP
 					} else {
-						console.log(res);
+						if (res.field) {
+							setError(res.field, {
+								type: 'manual',
+								message: res.message,
+							});
+						} else {
+							console.log(res);
+						}
 					}
-				}
-			})
-			.catch((error) => console.log(error));
+				})
+				.catch((error) => console.log(error))
+				.finally(() => setDisabled(false));
+		}, 1000);
 	};
 
 	return (
@@ -137,8 +143,13 @@ export const Join = () => {
 					placeholder='Confirm Password'
 				/>
 				{renderErrors()}
-				<button id='submit' type='submit' onClick={() => setShouldCheck(true)}>
-					Submit
+				<button
+					id='submit'
+					type='submit'
+					disabled={disabled}
+					onClick={() => setShouldCheck(true)}
+				>
+					Join
 				</button>
 			</form>
 		</div>
