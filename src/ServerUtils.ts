@@ -19,19 +19,17 @@ export const registerUser = ({
 };
 
 export const loginUser = (
-	{
-		username,
-		email,
-		password,
-	}: { username?: string; email?: string; password: string },
-	usernameLogin: boolean
+	{ emailUsername, password }: { emailUsername?: string; password: string },
+	emailLogin: boolean
 ) => {
-	const fieldToPass = usernameLogin ? { username } : { email };
+	const fieldToPass = emailLogin
+		? { email: emailUsername }
+		: { username: emailUsername };
 	return fetch(`${SERVER_IP}/login`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify({ fieldToPass, password }),
+		body: JSON.stringify({ fieldToPass, password, emailLogin }),
 	});
 };
