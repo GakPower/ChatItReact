@@ -5,7 +5,7 @@
 
   --primary: #2a2b2a;
   --primaryLight: #313231;
-  --primaryDisabled: #454645;
+  --primaryLightDisabled: #313231f8;
   --accent: #ff8966;
   --accentRipple: #ff8a667a;
   --accentHighRipple: #ff8a66af;
@@ -13,9 +13,11 @@
 
   --accentHighlight: rgba(255, 138, 102, 0.2);
   --accentLowHighlight: rgba(255, 138, 102, 0.15);
+  --accentLowHighlightDisabled: rgba(255, 138, 102, 0.05);
   --accentSecondary: #e5446d;
   
   --text: #918d7b;
+  --textDisabled: #918d7b56;
 
   --error: #a60000;
   --success: #00c400be;
