@@ -11,7 +11,7 @@
     a {
       color: var(--accent);
       font-family: var(--primaryFont);
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 500;
   
       cursor: pointer;
@@ -54,4 +54,25 @@
       }
     }
   }
+
+@media only screen and (max-width: 250px) {
+    #navBar {
+      a {
+        font-size: 1.5rem;
+      }
+      div a {
+        font-size: .8rem;
+        padding: 0 5px;
+      }
+    }
+}
+@media only screen and (max-width: 180px) {
+  #navBar {
+    flex-direction: column;
+    div a {
+      font-size: .8rem;
+      padding: 0 15px;
+    }
+  }
+}
   
