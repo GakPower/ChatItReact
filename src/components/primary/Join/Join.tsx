@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { registerUser } from '../../../ServerUtils';
+import { joinUser } from '../../../ServerUtils';
 import './Join.scss';
 
 interface FormInput {
@@ -46,27 +46,22 @@ export const Join = () => {
 		password: string;
 	}) => {
 		setDisabled(true);
-		setTimeout(() => {
-			registerUser({ username, email, password })
-				.then((res) => res.json())
-				.then((res) => {
-					if (res.valid) {
-						reset();
-						setShouldCheck(false);
-						// NAVIGATE TO APP
-					} else {
-						if (res.field) {
-							setError(res.field, {
-								type: 'manual',
-								message: res.message,
-							});
-						} else {
-							console.log(res);
-						}
-					}
-				})
-				.catch((error) => console.log(error))
-				.finally(() => setDisabled(false));
+		setTimeout(async () => {
+			const res = await joinUser({ username, email, password });
+
+			if (res.valid) {
+				reset();
+				setShouldCheck(false);
+				// NAVIGATE TO APP
+			} else if (res.field) {
+				setError(res.field, {
+					type: 'manual',
+					message: res.message,
+				});
+			} else {
+				console.log({ res });
+			}
+			setDisabled(false);
 		}, 1000);
 	};
 

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { loginUser } from '../../../ServerUtils';
+import { loginUser, logPosts } from '../../../ServerUtils';
+import { useCookies } from 'react-cookie';
 import './Login.scss';
 
 interface FormInput {
@@ -10,6 +11,7 @@ interface FormInput {
 }
 
 export const Login = () => {
+	const [cookies, setCookie] = useCookies();
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset, setError } = useForm<
 		FormInput
@@ -36,22 +38,23 @@ export const Login = () => {
 		password: string;
 	}) => {
 		setDisabled(true);
-		setTimeout(() => {
-			loginUser({ emailUsername, password }, isEmail(emailUsername))
-				.then((res) => res.json())
-				.then((res) => {
-					if (res.valid) {
-						reset();
-						// NAVIGATE TO APP
-					} else {
-						setError('emailUsername', {
-							type: 'manual',
-							message: res.message,
-						});
-					}
-				})
-				.catch((error) => console.log(error))
-				.finally(() => setDisabled(false));
+		setTimeout(async () => {
+			const res = await loginUser(
+				{ emailUsername, password },
+				isEmail(emailUsername),
+				setCookie
+			);
+			if (res.valid) {
+				reset();
+				// NAVIGATE TO APP
+			} else {
+				setError('emailUsername', {
+					type: 'manual',
+					message: res.message,
+				});
+			}
+			console.log({ cookies });
+			setDisabled(false);
 		}, 1000);
 	};
 
@@ -76,6 +79,7 @@ export const Login = () => {
 					Login
 				</button>
 			</form>
+			<button onClick={() => logPosts(cookies.token, setCookie)}>Posts</button>
 		</div>
 	);
 };

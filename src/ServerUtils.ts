@@ -1,6 +1,7 @@
+import Cookies from 'universal-cookie';
 const SERVER_IP = 'http://localhost:5000';
 
-export const registerUser = ({
+export const joinUser = async ({
 	username,
 	email,
 	password,
@@ -9,27 +10,69 @@ export const registerUser = ({
 	email: string;
 	password: string;
 }) => {
-	return fetch(`${SERVER_IP}/join`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ username, email, password }),
-	});
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/join`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ username, email, password }),
+		});
+		const resJson = await res.json();
+		return resJson;
+	} catch (error) {
+		console.log({ error });
+		return error;
+	}
 };
 
-export const loginUser = (
+export const loginUser = async (
 	{ emailUsername, password }: { emailUsername?: string; password: string },
-	emailLogin: boolean
+	emailLogin: boolean,
+	setCookie: any
 ) => {
-	const fieldToPass = emailLogin
-		? { email: emailUsername }
-		: { username: emailUsername };
-	return fetch(`${SERVER_IP}/login`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ fieldToPass, password, emailLogin }),
-	});
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/login`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ emailUsername, password, emailLogin }),
+		});
+
+		const jsonRes = await res.json();
+		if (jsonRes.valid) {
+			setCookie('token', jsonRes.token, { path: '/', sameSite: 'strict' });
+		}
+
+		return jsonRes;
+	} catch (error) {
+		console.log({ error });
+
+		return error;
+	}
+};
+
+export const logPosts = async (accessToken: string, setCookie: any) => {
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/posts`, {
+			method: 'GET',
+			headers: {
+				Authorization: 'Bearer ' + accessToken,
+				'Content-Type': 'application/json',
+			},
+		});
+		const { valid, data, expired, token, message } = await res.json();
+		if (valid) {
+			console.log({ data });
+		} else if (expired) {
+			console.log('Expired and updated');
+			setCookie('token', token, { path: '/', sameSite: 'strict' });
+			await logPosts(token, setCookie);
+		} else if (message) {
+			console.log({ message });
+		}
+	} catch (error) {
+		console.log(error);
+	}
 };
