@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { loginUser, logPosts } from '../../../ServerUtils';
-import { useCookies } from 'react-cookie';
 import './Login.scss';
 
 interface FormInput {
@@ -11,7 +10,6 @@ interface FormInput {
 }
 
 export const Login = () => {
-	const [cookies, setCookie] = useCookies();
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset, setError } = useForm<
 		FormInput
@@ -41,8 +39,7 @@ export const Login = () => {
 		setTimeout(async () => {
 			const res = await loginUser(
 				{ emailUsername, password },
-				isEmail(emailUsername),
-				setCookie
+				isEmail(emailUsername)
 			);
 			if (res.valid) {
 				reset();
@@ -53,7 +50,6 @@ export const Login = () => {
 					message: res.message,
 				});
 			}
-			console.log({ cookies });
 			setDisabled(false);
 		}, 1000);
 	};
@@ -79,7 +75,7 @@ export const Login = () => {
 					Login
 				</button>
 			</form>
-			<button onClick={() => logPosts(cookies.token, setCookie)}>Posts</button>
+			<button onClick={() => logPosts()}>Posts</button>
 		</div>
 	);
 };

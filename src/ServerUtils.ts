@@ -1,6 +1,8 @@
 import Cookies from 'universal-cookie';
 const SERVER_IP = 'http://localhost:5000';
 
+const cookies = new Cookies();
+
 export const joinUser = async ({
 	username,
 	email,
@@ -28,8 +30,7 @@ export const joinUser = async ({
 
 export const loginUser = async (
 	{ emailUsername, password }: { emailUsername?: string; password: string },
-	emailLogin: boolean,
-	setCookie: any
+	emailLogin: boolean
 ) => {
 	try {
 		const res = await fetch(`${SERVER_IP}/api/auth/login`, {
@@ -42,7 +43,7 @@ export const loginUser = async (
 
 		const jsonRes = await res.json();
 		if (jsonRes.valid) {
-			setCookie('token', jsonRes.token, { path: '/', sameSite: 'strict' });
+			cookies.set('token', jsonRes.token, { path: '/', sameSite: 'strict' });
 		}
 
 		return jsonRes;
@@ -53,12 +54,12 @@ export const loginUser = async (
 	}
 };
 
-export const logPosts = async (accessToken: string, setCookie: any) => {
+export const logPosts = async () => {
 	try {
 		const res = await fetch(`${SERVER_IP}/api/auth/posts`, {
 			method: 'GET',
 			headers: {
-				Authorization: 'Bearer ' + accessToken,
+				Authorization: 'Bearer ' + cookies.get('token'),
 				'Content-Type': 'application/json',
 			},
 		});
@@ -67,8 +68,8 @@ export const logPosts = async (accessToken: string, setCookie: any) => {
 			console.log({ data });
 		} else if (expired) {
 			console.log('Expired and updated');
-			setCookie('token', token, { path: '/', sameSite: 'strict' });
-			await logPosts(token, setCookie);
+			cookies.set('token', token, { path: '/', sameSite: 'strict' });
+			await logPosts();
 		} else if (message) {
 			console.log({ message });
 		}
