@@ -32,10 +32,16 @@
 
   user-select: none;
 
+  display: grid;
+  grid-template-rows: 70px auto;
+
   #switchContainer {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    height: calc(100% - 70px);
+    
+    & > * {
+      margin-top: 10vh;
+    }
   }
 }
