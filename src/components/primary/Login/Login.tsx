@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { loginUser, logPosts } from '../../../ServerUtils';
+import { loginUser } from '../../../ServerUtils';
 import './Login.scss';
 
 interface FormInput {
@@ -75,7 +75,6 @@ export const Login = () => {
 					Login
 				</button>
 			</form>
-			<button onClick={() => logPosts()}>Posts</button>
 		</div>
 	);
 };
