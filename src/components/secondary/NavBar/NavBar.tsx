@@ -9,6 +9,7 @@ export const NavBar = () => {
 			<div>
 				<Link to='/login'>Login</Link>
 				<Link to='/join'>Join</Link>
+				<Link to='/forgotPassword'>Forgot your Password?</Link>
 			</div>
 		</nav>
 	);
