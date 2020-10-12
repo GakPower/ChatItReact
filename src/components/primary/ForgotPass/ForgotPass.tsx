@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
+import { forgotPass } from '../../../ServerUtils';
 import './ForgotPass.scss';
 
 interface FormInput {
 	email: string;
 }
 
-export const ForgotPass = () => {
+export const ForgotPass = ({ history }: { history: any }) => {
 	const [shouldCheck, setShouldCheck] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset } = useForm<FormInput>();
@@ -17,21 +18,12 @@ export const ForgotPass = () => {
 	const onSubmit = async ({ email }: { email: string }) => {
 		setDisabled(true);
 		setTimeout(async () => {
-			// const res = await loginUser(
-			// 	{ emailUsername, password },
-			// 	isEmail(emailUsername)
-			// );
-			// if (res.valid) {
+			setDisabled(false);
+			await forgotPass({ email });
 			reset();
 			setShouldCheck(false);
-			// NAVIGATE TO APP
-			// } else {
-			// setError('emailUsername', {
-			// 	type: 'manual',
-			// 	message: res.message,
-			// });
-			// }
-			setDisabled(false);
+			// NAVIGATE TO LOGIN
+			history.push('./login');
 		}, 1000);
 	};
 

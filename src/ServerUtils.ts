@@ -77,3 +77,52 @@ export const logPosts = async () => {
 		console.log(error);
 	}
 };
+
+export const forgotPass = async ({ email }: { email: string }) => {
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/forgotPass`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ email }),
+		});
+		await res.json();
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const isResetIdValid = async (id: string) => {
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/checkResetId`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ id }),
+		});
+		const jsonRes = await res.json();
+
+		return !!jsonRes.valid;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const updatePassword = async (id: string, newPassword: string) => {
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/updatePassword`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ id, newPassword }),
+		});
+		const jsonRes = await res.json();
+
+		return jsonRes;
+	} catch (error) {
+		console.log(error);
+	}
+};

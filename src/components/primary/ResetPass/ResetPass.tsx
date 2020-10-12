@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { isResetIdValid, updatePassword } from '../../../ServerUtils';
 import './ResetPass.scss';
 
 interface FormInput {
@@ -9,11 +10,33 @@ interface FormInput {
 	passConfirm: string;
 }
 
-export const ResetPass = () => {
-	const { id } = useParams();
+export const ResetPass = ({ history }: { history: any }) => {
+	const { id } = useParams<{ id: string }>();
+
+	isResetIdValid(id).then((valid) => {
+		if (!valid) {
+			history.goBack();
+		}
+	});
+
+	useEffect(() => {
+		const intervalID = setInterval(() => {
+			isResetIdValid(id).then((valid) => {
+				if (!valid) {
+					history.goBack();
+				}
+			});
+		}, 1000);
+		return () => {
+			clearInterval(intervalID);
+		};
+	}, [id, history]);
+
 	const [shouldCheck, setShouldCheck] = useState(false);
 	const [disabled, setDisabled] = useState(false);
-	const { register, handleSubmit, watch, errors, reset } = useForm<FormInput>();
+	const { register, handleSubmit, watch, errors, reset, setError } = useForm<
+		FormInput
+	>();
 
 	const passwordWatch = watch('password', '');
 
@@ -24,6 +47,7 @@ export const ResetPass = () => {
 		} else if (errors?.passConfirm) {
 			error = 'Passwords do not match';
 		}
+
 		return <p>{error}</p>;
 	};
 
@@ -36,21 +60,19 @@ export const ResetPass = () => {
 	}) => {
 		setDisabled(true);
 		setTimeout(async () => {
-			// const res = await loginUser(
-			// 	{ emailUsername, password },
-			// 	isEmail(emailUsername)
-			// );
-			// if (res.valid) {
-			reset();
-			setShouldCheck(false);
-			// NAVIGATE TO APP
-			// } else {
-			// setError('emailUsername', {
-			// 	type: 'manual',
-			// 	message: res.message,
-			// });
-			// }
 			setDisabled(false);
+			const res = await updatePassword(id, password);
+			if (res.valid) {
+				reset();
+				setShouldCheck(false);
+				// NAVIGATE TO LOGIN
+				history.push('./login');
+			} else {
+				setError('password', {
+					type: 'manual',
+					message: res.message,
+				});
+			}
 		}, 1000);
 	};
 
