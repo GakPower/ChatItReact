@@ -11,7 +11,7 @@ interface FormInput {
 	passConfirm: string;
 }
 
-export const Join = () => {
+export const Join = ({ history }: { history: any }) => {
 	const [shouldCheck, setShouldCheck] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 
@@ -47,12 +47,14 @@ export const Join = () => {
 	}) => {
 		setDisabled(true);
 		setTimeout(async () => {
+			setDisabled(false);
 			const res = await joinUser({ username, email, password });
 
 			if (res.valid) {
 				reset();
 				setShouldCheck(false);
-				// NAVIGATE TO APP
+				// NAVIGATE TO Login
+				history.push('./login');
 			} else if (res.field) {
 				setError(res.field, {
 					type: 'manual',
@@ -61,7 +63,6 @@ export const Join = () => {
 			} else {
 				console.log({ res });
 			}
-			setDisabled(false);
 		}, 1000);
 	};
 

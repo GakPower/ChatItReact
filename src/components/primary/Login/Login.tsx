@@ -37,6 +37,7 @@ export const Login = () => {
 	}) => {
 		setDisabled(true);
 		setTimeout(async () => {
+			setDisabled(false);
 			const res = await loginUser(
 				{ emailUsername, password },
 				isEmail(emailUsername)
@@ -50,7 +51,6 @@ export const Login = () => {
 					message: res.message,
 				});
 			}
-			setDisabled(false);
 		}, 1000);
 	};
 
