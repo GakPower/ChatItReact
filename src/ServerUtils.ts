@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-const SERVER_IP = 'http://localhost:5000';
+const SERVER_IP = 'http://89.253.106.170:5000';
 
 const cookies = new Cookies();
 
