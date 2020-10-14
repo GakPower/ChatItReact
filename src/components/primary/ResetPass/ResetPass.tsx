@@ -15,7 +15,7 @@ export const ResetPass = ({ history }: { history: any }) => {
 
 	isResetIdValid(id).then((valid) => {
 		if (!valid) {
-			history.goBack();
+			history.push('/login');
 		}
 	});
 
@@ -23,7 +23,7 @@ export const ResetPass = ({ history }: { history: any }) => {
 		const intervalID = setInterval(() => {
 			isResetIdValid(id).then((valid) => {
 				if (!valid) {
-					history.goBack();
+					history.push('/login');
 				}
 			});
 		}, 1000);
