@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { loginUser } from '../../../ServerUtils';
+import { Link } from 'react-router-dom';
 import './Login.scss';
 
 interface FormInput {
@@ -20,7 +21,7 @@ export const Login = () => {
 		if (errors?.emailUsername) {
 			error = errors?.emailUsername?.message;
 		}
-		return <p>{error}</p>;
+		return <p id='error'>{error}</p>;
 	};
 
 	const isEmail = (input: string) => {
@@ -70,10 +71,17 @@ export const Login = () => {
 					type='password'
 					placeholder='Password'
 				/>
+				<Link to='/forgotPassword' id='forgotPass'>
+					Forgot your password?
+				</Link>
 				{renderErrors()}
 				<button type='submit' disabled={disabled}>
 					Login
 				</button>
+
+				<p id='join'>
+					Don't have an account? <Link to='/join'>Join us</Link>
+				</p>
 			</form>
 		</div>
 	);

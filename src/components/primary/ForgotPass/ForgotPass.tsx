@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { forgotPass } from '../../../ServerUtils';
+import { Link } from 'react-router-dom';
 import './ForgotPass.scss';
 
 interface FormInput {
@@ -55,6 +56,9 @@ export const ForgotPass = ({ history }: { history: any }) => {
 					Submit
 				</button>
 			</form>
+			<p id='login'>
+				Back to <Link to='/login'>Login</Link>
+			</p>
 		</div>
 	);
 };

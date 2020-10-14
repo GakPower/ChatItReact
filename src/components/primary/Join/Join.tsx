@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { joinUser } from '../../../ServerUtils';
+import { Link } from 'react-router-dom';
 import './Join.scss';
 
 interface FormInput {
@@ -33,7 +34,7 @@ export const Join = ({ history }: { history: any }) => {
 		} else if (errors?.passConfirm) {
 			error = 'Passwords do not match';
 		}
-		return <p>{error}</p>;
+		return <p id='error'>{error}</p>;
 	};
 
 	const onSubmit = async ({
@@ -147,6 +148,10 @@ export const Join = ({ history }: { history: any }) => {
 				>
 					Join
 				</button>
+
+				<p id='login'>
+					Already got an account? <Link to='/login'>Login</Link>
+				</p>
 			</form>
 		</div>
 	);
