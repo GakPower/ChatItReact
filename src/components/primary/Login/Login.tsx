@@ -46,7 +46,7 @@ export const Login = ({ history }: { history: any }) => {
 			if (res.valid) {
 				reset();
 				// NAVIGATE TO APP
-				history.push('/app');
+				history.push('/');
 			} else {
 				setError('emailUsername', {
 					type: 'manual',

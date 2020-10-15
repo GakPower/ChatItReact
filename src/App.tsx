@@ -10,7 +10,7 @@ import { isTokenValid } from './ServerUtils';
 import { MainApp } from './components/primary/MainApp/MainApp';
 
 function App() {
-	const [isLoggedIn, setLoggedIn] = useState(true);
+	const [isLoggedIn, setLoggedIn] = useState(false);
 
 	useEffect(() => {
 		const id = setInterval(() => {
@@ -34,9 +34,9 @@ function App() {
 					{!isLoggedIn && (
 						<Route exact path='/resetPassword/:id' component={ResetPass} />
 					)}
-					{isLoggedIn && <Route exact path='/app' component={MainApp} />}
+					{isLoggedIn && <Route exact path='/' component={MainApp} />}
 					{!isLoggedIn && <Redirect to='/login' />}
-					{isLoggedIn && <Redirect to='/app' />}
+					{isLoggedIn && <Redirect to='/' />}
 				</Switch>
 			</div>
 		</div>
