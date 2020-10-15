@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { joinUser } from '../../../ServerUtils';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Join.scss';
 
 interface FormInput {
@@ -12,7 +12,8 @@ interface FormInput {
 	passConfirm: string;
 }
 
-export const Join = ({ history }: { history: any }) => {
+export const Join = () => {
+	const history = useHistory();
 	const [shouldCheck, setShouldCheck] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 
