@@ -6,7 +6,7 @@ import { Login } from './components/primary/Login/Login';
 import { Join } from './components/primary/Join/Join';
 import { ForgotPass } from './components/primary/ForgotPass/ForgotPass';
 import { ResetPass } from './components/primary/ResetPass/ResetPass';
-import { isTokenValid } from './ServerUtils';
+import { isTokenValid, refreshToken } from './ServerUtils';
 import { MainApp } from './components/primary/MainApp/MainApp';
 
 function App() {
@@ -14,7 +14,14 @@ function App() {
 
 	useEffect(() => {
 		const id = setInterval(() => {
-			isTokenValid().then((valid) => setLoggedIn(valid));
+			isTokenValid().then(async (isValid) => {
+				if (!isValid) {
+					const res = await refreshToken();
+					setLoggedIn(res);
+				} else {
+					setLoggedIn(isValid);
+				}
+			});
 		}, 1000);
 		return () => {
 			clearInterval(id);
@@ -27,7 +34,11 @@ function App() {
 			<div id='switchContainer'>
 				<Switch>
 					{!isLoggedIn && <Route exact path='/login' component={Login} />}
-					{!isLoggedIn && <Route exact path='/join' component={Join} />}
+					{!isLoggedIn && (
+						<Route exact path='/join'>
+							<Join />
+						</Route>
+					)}
 					{!isLoggedIn && (
 						<Route exact path='/forgotPassword' component={ForgotPass} />
 					)}
