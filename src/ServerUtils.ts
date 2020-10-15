@@ -21,6 +21,9 @@ export const joinUser = async ({
 			body: JSON.stringify({ username, email, password }),
 		});
 		const resJson = await res.json();
+		if (resJson.valid) {
+			cookies.set('token', resJson.token, { path: '/', sameSite: 'strict' });
+		}
 		return resJson;
 	} catch (error) {
 		console.log({ error });
@@ -41,12 +44,12 @@ export const loginUser = async (
 			body: JSON.stringify({ emailUsername, password, emailLogin }),
 		});
 
-		const jsonRes = await res.json();
-		if (jsonRes.valid) {
-			cookies.set('token', jsonRes.token, { path: '/', sameSite: 'strict' });
+		const resJson = await res.json();
+		if (resJson.valid) {
+			cookies.set('token', resJson.token, { path: '/', sameSite: 'strict' });
 		}
 
-		return jsonRes;
+		return resJson;
 	} catch (error) {
 		console.log({ error });
 
@@ -67,7 +70,6 @@ export const logPosts = async () => {
 		if (valid) {
 			console.log({ data });
 		} else if (expired) {
-			console.log('Expired and updated');
 			cookies.set('token', token, { path: '/', sameSite: 'strict' });
 			await logPosts();
 		} else if (message) {
@@ -159,6 +161,28 @@ export const isTokenValid = async () => {
 
 		const jsonRes = await res.json();
 
+		return !!jsonRes.valid;
+	} catch (error) {
+		console.log(error);
+		return false;
+	}
+};
+
+export const refreshToken = async () => {
+	const token = cookies.get('token');
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/refreshToken`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ token }),
+		});
+
+		const jsonRes = await res.json();
+		if (jsonRes.valid) {
+			cookies.set('token', jsonRes.token, { path: '/', sameSite: 'strict' });
+		}
 		return !!jsonRes.valid;
 	} catch (error) {
 		console.log(error);
