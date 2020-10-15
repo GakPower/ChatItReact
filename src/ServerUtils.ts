@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-const SERVER_IP = 'http://89.253.106.170:5000';
+const SERVER_IP = 'http://localhost:5000';
 
 const cookies = new Cookies();
 
@@ -124,5 +124,44 @@ export const updatePassword = async (id: string, newPassword: string) => {
 		return jsonRes;
 	} catch (error) {
 		console.log(error);
+	}
+};
+
+export const logout = async () => {
+	const token = cookies.get('token');
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/logout`, {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ token }),
+		});
+		const jsonRes = await res.json();
+		cookies.remove('token');
+
+		return jsonRes;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const isTokenValid = async () => {
+	const token = cookies.get('token');
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/isTokenValid`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ token }),
+		});
+
+		const jsonRes = await res.json();
+
+		return !!jsonRes.valid;
+	} catch (error) {
+		console.log(error);
+		return false;
 	}
 };
