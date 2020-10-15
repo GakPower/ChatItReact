@@ -27,7 +27,11 @@ export const Join = () => {
 	const renderErrors = () => {
 		let error;
 		if (errors?.username) {
-			error = errors?.username?.message;
+			if (errors?.username?.type === 'validate') {
+				error = 'Username can not contain the "@" symbol';
+			} else {
+				error = errors?.username?.message;
+			}
 		} else if (errors?.email) {
 			error = errors?.email?.message;
 		} else if (errors?.password) {
@@ -79,6 +83,7 @@ export const Join = () => {
 							value: 255,
 							message: 'Username is too long',
 						},
+						validate: (value: string) => value.indexOf('@') === -1,
 					})}
 					shouldCheck={shouldCheck}
 					invalid={errors?.username}
@@ -130,9 +135,7 @@ export const Join = () => {
 							value: 255,
 							message: 'Confirm Password is too long',
 						},
-						validate: {
-							value: (value) => value === passwordWatch,
-						},
+						validate: (value) => value === passwordWatch,
 					})}
 					shouldCheck={shouldCheck}
 					invalid={errors?.passConfirm}

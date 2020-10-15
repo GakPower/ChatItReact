@@ -109,9 +109,7 @@ export const ResetPass = ({ history }: { history: any }) => {
 							value: 255,
 							message: 'Confirm Password is too long',
 						},
-						validate: {
-							value: (value) => value === passwordWatch,
-						},
+						validate: (value) => value === passwordWatch,
 					})}
 					shouldCheck={shouldCheck}
 					invalid={errors?.passConfirm}
