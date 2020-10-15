@@ -10,7 +10,7 @@ interface FormInput {
 	password: string;
 }
 
-export const Login = () => {
+export const Login = ({ history }: { history: any }) => {
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset, setError } = useForm<
 		FormInput
@@ -46,6 +46,7 @@ export const Login = () => {
 			if (res.valid) {
 				reset();
 				// NAVIGATE TO APP
+				history.push('/app');
 			} else {
 				setError('emailUsername', {
 					type: 'manual',

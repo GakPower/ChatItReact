@@ -55,7 +55,7 @@ export const Join = ({ history }: { history: any }) => {
 				reset();
 				setShouldCheck(false);
 				// NAVIGATE TO Login
-				history.push('./login');
+				history.push('/login');
 			} else if (res.field) {
 				setError(res.field, {
 					type: 'manual',
