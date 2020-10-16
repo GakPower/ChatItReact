@@ -8,6 +8,8 @@ import { ForgotPass } from './components/primary/ForgotPass/ForgotPass';
 import { ResetPass } from './components/primary/ResetPass/ResetPass';
 import { isTokenValid, refreshToken } from './ServerUtils';
 import { MainApp } from './components/primary/MainApp/MainApp';
+import { PrivacyPolicy } from './components/primary/PrivacyPolicy/PrivacyPolicy';
+import { Footer } from './components/secondary/Footer/Footer';
 
 function App() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -45,11 +47,13 @@ function App() {
 					{!isLoggedIn && (
 						<Route exact path='/resetPassword/:id' component={ResetPass} />
 					)}
+					<Route exact path='/privacyPolicy' component={PrivacyPolicy} />
 					{isLoggedIn && <Route exact path='/' component={MainApp} />}
 					{!isLoggedIn && <Redirect to='/login' />}
 					{isLoggedIn && <Redirect to='/' />}
 				</Switch>
 			</div>
+			<Footer />
 		</div>
 	);
 }
