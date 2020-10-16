@@ -1,0 +1,11 @@
+.icon {
+    * {
+        fill: var(--accentRipple);
+        transition: fill 200ms linear;
+    }
+    
+
+    &:hover *  {
+        fill: var(--accent)
+    }
+}
