@@ -1,12 +1,13 @@
 #loginContainer {
     width: 90%;
     max-width: 300px;
-    height: 80%;
-    max-height: 300px;
+    height: 100%;
+    min-height: 340px;
+    max-height: 380px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     background-color: var(--primary);
     border-radius: 10px;
     border: 1px solid var(--accent);
@@ -24,21 +25,8 @@
         justify-content: center;
 
         width: 100%;
-        height: 80%;
 
-        a {
-            color: var(--accentHighRipple);
-            text-decoration: none;
-            padding: 4px 8px;
-            border-radius: 5px;
-            transition: background-color 200ms linear,
-            color 200ms linear;
-
-            &:hover {
-                color: var(--accent);
-                background-color: var(--accentLowHighlight);
-            }
-        }
+        margin-top: 10px;
 
         #forgotPass {
             font-size: .8rem;
@@ -52,36 +40,62 @@
             margin-top: 5px;
             text-align: center;
         }
+    }
 
-        & > button {
-            margin-top: 20px;
-            width: 40%;
-            height: 35px;
-            margin-bottom: 15px;
-            background-color: var(--primaryLight);
-            border: 1px solid var(--accentLowHighlight);
-            border-radius: 10px;
+    #separator {
+        width: 60%;
+        height: 2px;
+        background-color: var(--accentHighlight);
+        margin-bottom: 15px;
+    }
+
+    a {
+        color: var(--accentHighRipple);
+        text-decoration: none;
+        padding: 4px 8px;
+        border-radius: 5px;
+        transition: background-color 200ms linear,
+        color 200ms linear;
+
+        &:hover {
             color: var(--accent);
-            font-family: var(--secondaryFont);
-            cursor: pointer;
-            padding: 0;
+            background-color: var(--accentLowHighlight);
+        }
+    }
 
-            transition: box-shadow 300ms;
-            
-            &:hover {
-                box-shadow: 0 0 1px var(--accentRipple), 0 0 1px var(--accentRipple);
-            }
-            &:disabled {
-                background-color: var(--primaryDisabled);
-                color: var(--textDisabled);
-                box-shadow: 0 0 1px var(--accentLowHighlightDisabled), 0 0 1px var(--accentLowHighlightDisabled);
-                cursor: default;
-            }
+    form > button, & > button {
+        margin-top: 20px;
+        width: 40%;
+        height: 35px;
+        margin-bottom: 15px;
+        background-color: var(--primaryLight);
+        border: 1px solid var(--accentLowHighlight);
+        border-radius: 10px;
+        color: var(--accent);
+        font-family: var(--secondaryFont);
+        cursor: pointer;
+        padding: 0;
+
+        transition: box-shadow 300ms;
+        
+        &:hover {
+            box-shadow: 0 0 1px var(--accentRipple), 0 0 1px var(--accentRipple);
         }
-        #join {
-            font-size: .8rem;
-            color: var(--text);
-            text-align: center;
+        &:disabled {
+            background-color: var(--primaryDisabled);
+            color: var(--textDisabled);
+            box-shadow: 0 0 1px var(--accentLowHighlightDisabled), 0 0 1px var(--accentLowHighlightDisabled);
+            cursor: default;
         }
+    }
+    & > button {
+        margin-top: 0;
+        width: 50%;
+    }
+    #join {
+        font-size: .8rem;
+        color: var(--text);
+        text-align: center;
+        justify-self: flex-end;
     }
 }
