@@ -6,10 +6,11 @@ import { Login } from './components/primary/Login/Login';
 import { Join } from './components/primary/Join/Join';
 import { ForgotPass } from './components/primary/ForgotPass/ForgotPass';
 import { ResetPass } from './components/primary/ResetPass/ResetPass';
-import { isTokenValid, refreshToken } from './ServerUtils';
+import { isTokenValid, refreshToken } from './helpers/ServerUtils';
 import { MainApp } from './components/primary/MainApp/MainApp';
 import { PrivacyPolicy } from './components/primary/PrivacyPolicy/PrivacyPolicy';
 import { Footer } from './components/secondary/Footer/Footer';
+import { GoogleAuth } from './components/primary/GoogleAuth/GoogleAuth';
 
 function App() {
 	const [isLoggedIn, setLoggedIn] = useState(false);
@@ -46,6 +47,9 @@ function App() {
 					)}
 					{!isLoggedIn && (
 						<Route exact path='/resetPassword/:id' component={ResetPass} />
+					)}
+					{!isLoggedIn && (
+						<Route exact path='/authenticate/google' component={GoogleAuth} />
 					)}
 					<Route exact path='/privacyPolicy' component={PrivacyPolicy} />
 					{isLoggedIn && <Route exact path='/' component={MainApp} />}

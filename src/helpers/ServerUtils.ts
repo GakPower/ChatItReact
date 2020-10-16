@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 const SERVER_IP = 'http://localhost:5000';
 
@@ -187,5 +188,20 @@ export const refreshToken = async () => {
 	} catch (error) {
 		console.log(error);
 		return false;
+	}
+};
+
+export const getGoogleAuthLink = async () => {
+	try {
+		const res = await fetch(`${SERVER_IP}/api/auth/getGoogleAuthLink`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		});
+		const jsonRes = await res.json();
+		return jsonRes.link;
+	} catch (error) {
+		console.log(error);
 	}
 };

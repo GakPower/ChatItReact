@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { useParams, useHistory } from 'react-router-dom';
-import { isResetIdValid, updatePassword } from '../../../ServerUtils';
+import { isResetIdValid, updatePassword } from '../../../helpers/ServerUtils';
 import './ResetPass.scss';
 
 interface FormInput {
