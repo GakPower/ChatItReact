@@ -20,7 +20,7 @@ export const PrivacyPolicy = () => {
 				<a
 					href='https://www.privacypolicies.com/privacy-policy-generator/'
 					target='_blank'
-					rel='noreferrer'
+					rel='noopener noreferrer'
 				>
 					Privacy Policy Generator
 				</a>
@@ -213,7 +213,7 @@ export const PrivacyPolicy = () => {
 				<a
 					href='https://www.privacypolicies.com/blog/cookies/'
 					target='_blank'
-					rel='noreferrer'
+					rel='noopener noreferrer'
 				>
 					What Are Cookies?
 				</a>
