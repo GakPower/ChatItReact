@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { isResetIdValid, updatePassword } from '../../../ServerUtils';
 import './ResetPass.scss';
 
@@ -10,7 +10,8 @@ interface FormInput {
 	passConfirm: string;
 }
 
-export const ResetPass = ({ history }: { history: any }) => {
+export const ResetPass = () => {
+	const history = useHistory();
 	const { id } = useParams<{ id: string }>();
 
 	isResetIdValid(id).then((valid) => {
@@ -51,13 +52,7 @@ export const ResetPass = ({ history }: { history: any }) => {
 		return <p>{error}</p>;
 	};
 
-	const onSubmit = async ({
-		password,
-		passConfirm,
-	}: {
-		password: string;
-		passConfirm: string;
-	}) => {
+	const onSubmit = async ({ password }: { password: string }) => {
 		setDisabled(true);
 		setTimeout(async () => {
 			setDisabled(false);

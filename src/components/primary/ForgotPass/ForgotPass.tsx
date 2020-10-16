@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { forgotPass } from '../../../ServerUtils';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './ForgotPass.scss';
 
 interface FormInput {
 	email: string;
 }
 
-export const ForgotPass = ({ history }: { history: any }) => {
+export const ForgotPass = () => {
+	const history = useHistory();
 	const [shouldCheck, setShouldCheck] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset } = useForm<FormInput>();

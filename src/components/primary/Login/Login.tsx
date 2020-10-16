@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { loginUser } from '../../../ServerUtils';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Login.scss';
 
 interface FormInput {
@@ -10,7 +10,8 @@ interface FormInput {
 	password: string;
 }
 
-export const Login = ({ history }: { history: any }) => {
+export const Login = () => {
+	const history = useHistory();
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset, setError } = useForm<
 		FormInput
