@@ -25,15 +25,14 @@
 
 #App {
   background-color: var(--primaryLight);
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 
   font-family: var(--secondaryFont);
 
   user-select: none;
 
   display: grid;
-  grid-template-rows: 70px auto;
+  grid-template-rows: 70px auto 60px;
 
   #switchContainer {
     display: flex;
