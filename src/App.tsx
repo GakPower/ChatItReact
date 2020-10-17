@@ -31,30 +31,26 @@ function App() {
 		};
 	}, []);
 
+	const publicRoute = (path: string, component: any) => {
+		return !isLoggedIn && <Route exact path={path} component={component} />;
+	};
+	const privateRoute = (path: string, component: any) => {
+		return isLoggedIn && <Route exact path={path} component={component} />;
+	};
+
 	return (
 		<div id='App'>
 			<NavBar isLoggedIn={isLoggedIn} />
 			<div id='switchContainer'>
 				<Switch>
-					{!isLoggedIn && <Route exact path='/login' component={Login} />}
-					{!isLoggedIn && (
-						<Route exact path='/join'>
-							<Join />
-						</Route>
-					)}
-					{!isLoggedIn && (
-						<Route exact path='/forgotPassword' component={ForgotPass} />
-					)}
-					{!isLoggedIn && (
-						<Route exact path='/resetPassword/:id' component={ResetPass} />
-					)}
-					{!isLoggedIn && (
-						<Route exact path='/authenticate/google' component={GoogleAuth} />
-					)}
+					{publicRoute('/login', Login)}
+					{publicRoute('/join', Join)}
+					{publicRoute('/forgotPassword', ForgotPass)}
+					{publicRoute('/resetPassword/:id', ResetPass)}
 					<Route exact path='/privacyPolicy' component={PrivacyPolicy} />
-					{isLoggedIn && <Route exact path='/' component={MainApp} />}
-					{!isLoggedIn && <Redirect to='/login' />}
-					{isLoggedIn && <Redirect to='/' />}
+					{publicRoute('/', MainApp)}
+					{/* {!isLoggedIn && <Redirect to='/login' />} */}
+					{/* {isLoggedIn && <Redirect to='/' />} */}
 				</Switch>
 			</div>
 			<Footer />
