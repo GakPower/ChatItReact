@@ -152,11 +152,10 @@ export const Join = () => {
 				>
 					Join
 				</button>
-
-				<p id='login'>
-					Already got an account? <Link to='/login'>Login</Link>
-				</p>
 			</form>
+			<p id='login'>
+				Already got an account? <Link to='/login'>Login</Link>
+			</p>
 		</div>
 	);
 };

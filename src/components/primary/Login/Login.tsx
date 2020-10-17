@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { loginUser } from '../../../helpers/ServerUtils';
+import { loginUser, getGoogleAuthLink } from '../../../helpers/ServerUtils';
 import { Link, useHistory } from 'react-router-dom';
 import './Login.scss';
 
@@ -80,11 +80,22 @@ export const Login = () => {
 				<button type='submit' disabled={disabled}>
 					Login
 				</button>
-
-				<p id='join'>
-					Don't have an account? <Link to='/join'>Join us</Link>
-				</p>
 			</form>
+
+			{/* <div id='separator' />
+
+			<button
+				onClick={async () => {
+					const link = await getGoogleAuthLink();
+					window.open(link, '_self');
+				}}
+			>
+				Login with Google
+			</button> */}
+
+			<p id='join'>
+				Don't have an account? <Link to='/join'>Join us</Link>
+			</p>
 		</div>
 	);
 };
