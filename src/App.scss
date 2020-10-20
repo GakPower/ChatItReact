@@ -6,18 +6,22 @@
   --primary: #2a2b2a;
   --primaryLight: #313231;
   --primaryLightDisabled: #313231f8;
+
   --accent: #ff8966;
   --accentRipple: #ff8a667a;
   --accentHighRipple: #ff8a66af;
   --accentMidRipple: #ff8a6691;
-
   --accentHighlight: rgba(255, 138, 102, 0.2);
   --accentLowHighlight: rgba(255, 138, 102, 0.15);
   --accentLowHighlightDisabled: rgba(255, 138, 102, 0.05);
-  --accentSecondary: #e5446d;
+
+  --accentSecondary: #3B8EA5;
   
   --text: #918d7b;
+  --textWhite: #d4d4d4;
   --textDisabled: #918d7b56;
+
+  --borderColor: var(--accentRipple);
 
   --error: #a60000;
   --success: #00c400be;
@@ -32,12 +36,12 @@
   user-select: none;
 
   display: grid;
-  grid-template-rows: 70px auto 60px;
+  grid-template-rows: 70px calc(100vh - 60px) 60px;
 
   #switchContainer {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 10vh 0;
+    padding: calc(20px + 3%) 0;
   }
 }
