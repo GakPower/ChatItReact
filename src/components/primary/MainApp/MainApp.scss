@@ -1,0 +1,88 @@
+#mainApp {
+    width: 90%;
+    height: 100%;
+    background-color: var(--primary);
+    border: 1px solid var(--borderColor);
+    border-radius: 15px;
+
+    display: grid;
+    grid-template-rows: auto 40px;
+
+    #chatContainer {
+        border-radius: 15px 15px 0 0;
+
+        overflow-y: auto;
+
+        div {
+            padding: 5px 10px;
+            color: var(--textWhite);
+            display: flex;
+            word-break: break-all;
+            justify-content: flex-start;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                border-radius: 0 15px 15px 15px;
+                background-color:rgb(63, 63, 63);
+
+                p {
+                    font-size: .7rem;
+                }
+            }
+            &.mine {
+                justify-content: flex-end;
+
+                div {
+                    text-align: end;
+                    background-color: var(--accentSecondary);
+                    max-width: 90%;
+                    border-radius: 15px 0 15px 15px;
+                }
+            }
+        }
+    }
+
+    #senderContainer {
+        display: grid;
+        grid-template-columns: 1fr 70px;
+        align-items: center;
+        justify-content: space-between;
+ 
+        border-radius: 0 0 15px 15px;
+        border-top: 1px solid var(--borderColor);
+
+        overflow: hidden;
+
+        transition: grid-template-columns 500ms linear;
+
+        input {
+            height: calc(100% - 2px);
+            padding-left: 10px;
+            border-radius: 0 15px 15px 15px;
+            border: 0;
+            border-right: 1px solid var(--borderColor);
+            background-color: var(--primaryLight);
+            color: var(--text);
+            font-family: var(--secondaryFont);
+            font-size: 1.1rem;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: transparent;
+            border: 0;
+            padding: 0;
+        }
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    #senderContainer input {
+        width: 90%;
+    }
+    
+}
