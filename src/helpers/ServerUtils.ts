@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 const SERVER_IP = 'http://localhost:5000';
 
