@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { loginUser } from '../../../helpers/ServerUtils';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Login.scss';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '../../../redux/slices/userInfo';
@@ -14,7 +14,6 @@ interface FormInput {
 
 export const Login = () => {
 	const dispatch = useDispatch();
-	const history = useHistory();
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset, setError } = useForm<
 		FormInput
@@ -51,7 +50,7 @@ export const Login = () => {
 				reset();
 				dispatch(setUsername(res.username));
 				// NAVIGATE TO APP
-				history.push('/');
+				// history.push('/');
 			} else {
 				setError('emailUsername', {
 					type: 'manual',
