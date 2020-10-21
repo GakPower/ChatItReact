@@ -9,22 +9,38 @@
     grid-template-rows: auto 40px;
 
     #chatContainer {
+        margin: 5px 4px 5px 0;
         border-radius: 15px 15px 0 0;
 
         overflow-y: auto;
 
-        div {
+        #message {
             padding: 5px 10px;
             color: var(--textWhite);
             display: flex;
             word-break: break-all;
+            align-items: center;
             justify-content: flex-start;
+
+            & > p {
+                opacity: 0;
+                margin: 0 10px;
+                word-break: normal;
+
+                font-size: .75rem;
+
+                transition: opacity 500ms 500ms;
+            }
+            &:hover > p {
+                opacity: 1;
+            } 
 
             div {
                 display: flex;
                 flex-direction: column;
                 border-radius: 0 15px 15px 15px;
                 background-color:rgb(63, 63, 63);
+                padding: 5px 10px;
 
                 p {
                     font-size: .7rem;
