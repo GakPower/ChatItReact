@@ -11,18 +11,16 @@ export const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 	return (
 		<nav id='navBar'>
 			<Link to='/'>ChatIt</Link>
-			<div>
-				<p>{username}</p>
+			{isLoggedIn && (
 				<div>
-					{isLoggedIn && (
-						<LogoutIcon
-							onCLick={async () => {
-								await logout();
-							}}
-						/>
-					)}
+					<p>{username}</p>
+					<LogoutIcon
+						onCLick={async () => {
+							await logout();
+						}}
+					/>
 				</div>
-			</div>
+			)}
 		</nav>
 	);
 };
