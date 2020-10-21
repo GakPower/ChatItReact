@@ -1,5 +1,4 @@
 import React from 'react';
-import './SendIcon.scss';
 
 export const SendIcon = (props: any) => {
 	return (
@@ -10,8 +9,7 @@ export const SendIcon = (props: any) => {
 			viewBox='0 0 512 512'
 			width='24'
 			xmlns='http://www.w3.org/2000/svg'
-			fill={'#fff'}
-			className='icon'
+			fill='#fff'
 			{...props}
 		>
 			<g>
