@@ -36,7 +36,7 @@
   user-select: none;
 
   display: grid;
-  grid-template-rows: 70px calc(100vh - 60px) 60px;
+  grid-template-rows: 70px auto 60px;
 
   #switchContainer {
     display: flex;
