@@ -9,6 +9,10 @@
 
     border-bottom: 1px solid var(--borderColor);
   
+    p {
+      color: var(--accentRipple);
+    }
+
     a {
       color: var(--accent);
       font-family: var(--primaryFont);
