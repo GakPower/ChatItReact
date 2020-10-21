@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { SendIcon } from '../../../assets/icons/SendIcon/SendIcon';
+import { SendIcon } from '../../../assets/icons/SendIcon';
 import io from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import { selectUsername } from '../../../redux/slices/userInfo';
 import './MainApp.scss';
-// import { useHistory } from 'react-router-dom';
 
 interface MessageType {
 	id: string;
@@ -15,7 +14,6 @@ interface MessageType {
 const socket = io('http://localhost:5000');
 
 export const MainApp = () => {
-	// const history = useHistory();
 	const [messages, setMessages] = useState<MessageType[]>([]);
 	const [inputText, setInputText] = useState('');
 	const username = useSelector(selectUsername);
