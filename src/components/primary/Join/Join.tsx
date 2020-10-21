@@ -3,6 +3,8 @@ import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { joinUser } from '../../../helpers/ServerUtils';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUsername } from '../../../redux/slices/userInfo';
 import './Join.scss';
 
 interface FormInput {
@@ -13,6 +15,7 @@ interface FormInput {
 }
 
 export const Join = () => {
+	const dispatch = useDispatch();
 	const history = useHistory();
 	const [shouldCheck, setShouldCheck] = useState(false);
 	const [disabled, setDisabled] = useState(false);
@@ -57,8 +60,10 @@ export const Join = () => {
 			const res = await joinUser({ username, email, password });
 
 			if (res.valid) {
+				dispatch(setUsername(username));
 				reset();
 				setShouldCheck(false);
+
 				// NAVIGATE TO Login
 				history.push('/login');
 			} else if (res.field) {

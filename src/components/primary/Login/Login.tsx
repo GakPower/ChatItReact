@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import { loginUser, getGoogleAuthLink } from '../../../helpers/ServerUtils';
 import { Link, useHistory } from 'react-router-dom';
 import './Login.scss';
+import { useDispatch } from 'react-redux';
+import { setUsername } from '../../../redux/slices/userInfo';
 
 interface FormInput {
 	emailUsername: string;
@@ -11,6 +13,7 @@ interface FormInput {
 }
 
 export const Login = () => {
+	const dispatch = useDispatch();
 	const history = useHistory();
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset, setError } = useForm<
@@ -46,6 +49,7 @@ export const Login = () => {
 			);
 			if (res.valid) {
 				reset();
+				dispatch(setUsername(res.username));
 				// NAVIGATE TO APP
 				history.push('/');
 			} else {
