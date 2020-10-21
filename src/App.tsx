@@ -28,7 +28,9 @@ function App() {
 				if (!valid) {
 					const res = await refreshToken();
 					dispatch(setLoggedIn(!!res));
-					dispatch(setUsername(res ? username : ''));
+					if (!res) {
+						dispatch(setUsername(''));
+					}
 				} else {
 					dispatch(setLoggedIn(true));
 					dispatch(setUsername(username));
