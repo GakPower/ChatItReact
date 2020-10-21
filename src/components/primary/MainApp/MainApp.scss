@@ -76,6 +76,17 @@
             background-color: transparent;
             border: 0;
             padding: 0;
+            height: 100%;
+            cursor: pointer;
+
+            & > * {
+                fill: var(--accentRipple);
+                transition: fill 250ms linear;
+            }
+
+            &:hover > * {
+                fill: var(--accent);
+            } 
         }
     }
 }
