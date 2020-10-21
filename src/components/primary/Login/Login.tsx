@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { loginUser, getGoogleAuthLink } from '../../../helpers/ServerUtils';
+import { loginUser } from '../../../helpers/ServerUtils';
 import { Link, useHistory } from 'react-router-dom';
 import './Login.scss';
 import { useDispatch } from 'react-redux';
