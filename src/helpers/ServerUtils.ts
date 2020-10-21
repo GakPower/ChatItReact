@@ -161,9 +161,10 @@ export const isTokenValid = async () => {
 
 		const jsonRes = await res.json();
 
-		return !!jsonRes.valid;
+		return jsonRes;
 	} catch (error) {
 		console.log(error);
+
 		return false;
 	}
 };
