@@ -38,7 +38,7 @@ function App() {
 		return () => {
 			clearInterval(id);
 		};
-	}, []);
+	}, [dispatch]);
 
 	const publicRoute = (path: string, component: any) => {
 		return !loggedIn && <Route exact path={path} component={component} />;
