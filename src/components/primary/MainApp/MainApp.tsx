@@ -22,9 +22,10 @@ export const MainApp = () => {
 		socket.on('message', (data: any) => {
 			setMessages((oldMessages) => {
 				const newList = [...oldMessages];
-				if (newList.length > 0 && newList[newList.length - 1].id === data.id) {
-					return newList;
-				} else {
+				if (
+					newList.length === 0 ||
+					newList[newList.length - 1].id !== data.id
+				) {
 					newList.push(data);
 				}
 
