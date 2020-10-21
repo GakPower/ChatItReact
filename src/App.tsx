@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import { NavBar } from './components/secondary/NavBar/NavBar';
 import { Switch, Route, Redirect } from 'react-router-dom';
@@ -10,19 +10,28 @@ import { isTokenValid, refreshToken } from './helpers/ServerUtils';
 import { MainApp } from './components/primary/MainApp/MainApp';
 import { PrivacyPolicy } from './components/primary/PrivacyPolicy/PrivacyPolicy';
 import { Footer } from './components/secondary/Footer/Footer';
-import { GoogleAuth } from './components/primary/GoogleAuth/GoogleAuth';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+	selectLoggedIn,
+	setLoggedIn,
+	setUsername,
+} from './redux/slices/userInfo';
+// import { GoogleAuth } from './components/primary/GoogleAuth/GoogleAuth';
 
 function App() {
-	const [isLoggedIn, setLoggedIn] = useState(false);
+	const dispatch = useDispatch();
+	const loggedIn = useSelector(selectLoggedIn);
 
 	useEffect(() => {
 		const id = setInterval(() => {
-			isTokenValid().then(async (isValid) => {
-				if (!isValid) {
+			isTokenValid().then(async ({ valid, username }) => {
+				if (!valid) {
 					const res = await refreshToken();
-					setLoggedIn(res);
+					dispatch(setLoggedIn(!!res));
+					dispatch(setUsername(res ? username : ''));
 				} else {
-					setLoggedIn(isValid);
+					dispatch(setLoggedIn(true));
+					dispatch(setUsername(username));
 				}
 			});
 		}, 1000);
@@ -32,15 +41,15 @@ function App() {
 	}, []);
 
 	const publicRoute = (path: string, component: any) => {
-		return !isLoggedIn && <Route exact path={path} component={component} />;
+		return !loggedIn && <Route exact path={path} component={component} />;
 	};
 	const privateRoute = (path: string, component: any) => {
-		return isLoggedIn && <Route exact path={path} component={component} />;
+		return loggedIn && <Route exact path={path} component={component} />;
 	};
 
 	return (
 		<div id='App'>
-			<NavBar isLoggedIn={isLoggedIn} />
+			<NavBar isLoggedIn={loggedIn} />
 			<div id='switchContainer'>
 				<Switch>
 					{publicRoute('/login', Login)}
@@ -48,9 +57,9 @@ function App() {
 					{publicRoute('/forgotPassword', ForgotPass)}
 					{publicRoute('/resetPassword/:id', ResetPass)}
 					<Route exact path='/privacyPolicy' component={PrivacyPolicy} />
-					{publicRoute('/', MainApp)}
-					{/* {!isLoggedIn && <Redirect to='/login' />} */}
-					{/* {isLoggedIn && <Redirect to='/' />} */}
+					{privateRoute('/', MainApp)}
+					{!loggedIn && <Redirect to='/login' />}
+					{loggedIn && <Redirect to='/' />}
 				</Switch>
 			</div>
 			<Footer />
