@@ -1,9 +1,10 @@
 import React from 'react';
 import './NavBar.scss';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { logout } from '../../../helpers/ServerUtils';
 import { useSelector } from 'react-redux';
 import { selectUsername } from '../../../redux/slices/userInfo';
+import { LogoutIcon } from '../../../assets/icons/LogoutIcon';
 
 export const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 	const username = useSelector(selectUsername);
@@ -13,9 +14,11 @@ export const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 			<p>{username}</p>
 			<div>
 				{isLoggedIn && (
-					<Link to='/login' onClick={async () => await logout()}>
-						Logout
-					</Link>
+					<LogoutIcon
+						onCLick={async () => {
+							await logout();
+						}}
+					/>
 				)}
 			</div>
 		</nav>
