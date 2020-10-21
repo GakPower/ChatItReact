@@ -1,7 +1,7 @@
 import React from 'react';
-import { ClickableIcon } from './ClickableHOC.tsx/ClickableHOC';
+import { ClickableIcon } from './ClickableHOC/ClickableHOC';
 
-const LinkedInIcon = () => {
+const Icon = () => {
 	return (
 		<svg
 			height='20'
@@ -15,4 +15,4 @@ const LinkedInIcon = () => {
 	);
 };
 
-export const LinkedIn = ClickableIcon(LinkedInIcon);
+export const LinkedInIcon = ClickableIcon(Icon);

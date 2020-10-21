@@ -1,7 +1,7 @@
 import React from 'react';
-import { ClickableIcon } from './ClickableHOC.tsx/ClickableHOC';
+import { ClickableIcon } from './ClickableHOC/ClickableHOC';
 
-const GithubIcon = () => {
+const Icon = () => {
 	return (
 		<svg
 			version='1.1'
@@ -53,4 +53,4 @@ const GithubIcon = () => {
 	);
 };
 
-export const GitHub = ClickableIcon(GithubIcon);
+export const GitHubIcon = ClickableIcon(Icon);
