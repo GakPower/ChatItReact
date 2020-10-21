@@ -1,7 +1,12 @@
 import Cookies from 'universal-cookie';
 const SERVER_IP = 'http://localhost:5000';
+const AUTH_PATH = `${SERVER_IP}/api/auth`;
 
 const cookies = new Cookies();
+
+const setTokenCookie = (token: string) => {
+	cookies.set('token', token, { path: '/', sameSite: 'strict' });
+};
 
 export const joinUser = async ({
 	username,
@@ -13,7 +18,7 @@ export const joinUser = async ({
 	password: string;
 }) => {
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/join`, {
+		const res = await fetch(`${AUTH_PATH}/join`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -22,7 +27,7 @@ export const joinUser = async ({
 		});
 		const resJson = await res.json();
 		if (resJson.valid) {
-			cookies.set('token', resJson.token, { path: '/', sameSite: 'strict' });
+			setTokenCookie(resJson.token);
 		}
 		return resJson;
 	} catch (error) {
@@ -36,7 +41,7 @@ export const loginUser = async (
 	emailLogin: boolean
 ) => {
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/login`, {
+		const res = await fetch(`${AUTH_PATH}/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -46,7 +51,7 @@ export const loginUser = async (
 
 		const resJson = await res.json();
 		if (resJson.valid) {
-			cookies.set('token', resJson.token, { path: '/', sameSite: 'strict' });
+			setTokenCookie(resJson.token);
 		}
 
 		return resJson;
@@ -59,7 +64,7 @@ export const loginUser = async (
 
 export const logPosts = async () => {
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/posts`, {
+		const res = await fetch(`${AUTH_PATH}/posts`, {
 			method: 'GET',
 			headers: {
 				Authorization: 'Bearer ' + cookies.get('token'),
@@ -70,7 +75,7 @@ export const logPosts = async () => {
 		if (valid) {
 			console.log({ data });
 		} else if (expired) {
-			cookies.set('token', token, { path: '/', sameSite: 'strict' });
+			setTokenCookie(token);
 			await logPosts();
 		} else if (message) {
 			console.log({ message });
@@ -82,7 +87,7 @@ export const logPosts = async () => {
 
 export const forgotPass = async ({ email }: { email: string }) => {
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/forgotPass`, {
+		const res = await fetch(`${AUTH_PATH}/forgotPass`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -97,7 +102,7 @@ export const forgotPass = async ({ email }: { email: string }) => {
 
 export const isResetIdValid = async (id: string) => {
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/checkResetId`, {
+		const res = await fetch(`${AUTH_PATH}/checkResetId`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -114,7 +119,7 @@ export const isResetIdValid = async (id: string) => {
 
 export const updatePassword = async (id: string, newPassword: string) => {
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/updatePassword`, {
+		const res = await fetch(`${AUTH_PATH}/updatePassword`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -132,7 +137,7 @@ export const updatePassword = async (id: string, newPassword: string) => {
 export const logout = async () => {
 	const token = cookies.get('token');
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/logout`, {
+		const res = await fetch(`${AUTH_PATH}/logout`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -151,7 +156,7 @@ export const logout = async () => {
 export const isTokenValid = async () => {
 	const token = cookies.get('token');
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/isTokenValid`, {
+		const res = await fetch(`${AUTH_PATH}/isTokenValid`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -172,7 +177,7 @@ export const isTokenValid = async () => {
 export const refreshToken = async () => {
 	const token = cookies.get('token');
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/refreshToken`, {
+		const res = await fetch(`${AUTH_PATH}/refreshToken`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -193,7 +198,7 @@ export const refreshToken = async () => {
 
 export const getGoogleAuthLink = async () => {
 	try {
-		const res = await fetch(`${SERVER_IP}/api/auth/getGoogleAuthLink`, {
+		const res = await fetch(`${AUTH_PATH}/getGoogleAuthLink`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

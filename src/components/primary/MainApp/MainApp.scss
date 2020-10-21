@@ -1,12 +1,13 @@
 #mainApp {
     width: 90%;
     height: 100%;
-    background-color: var(--primary);
-    border: 1px solid var(--borderColor);
-    border-radius: 15px;
 
     display: grid;
     grid-template-rows: auto 40px;
+
+    background-color: var(--primary);
+    border: 1px solid var(--borderColor);
+    border-radius: 15px;
 
     #chatContainer {
         margin: 5px 4px 5px 0;
@@ -15,12 +16,15 @@
         overflow-y: auto;
 
         #message {
-            padding: 5px 10px;
-            color: var(--textWhite);
             display: flex;
-            word-break: break-all;
             align-items: center;
             justify-content: flex-start;
+
+            padding: 5px 10px;
+            
+            color: var(--textWhite);
+
+            word-break: break-all;
 
             & > p {
                 opacity: 0;
