@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { SendIcon } from '../../../assets/icons/SendIcon/SendIcon';
 import io from 'socket.io-client';
+import { useSelector } from 'react-redux';
+import { selectUsername } from '../../../redux/slices/userInfo';
 import './MainApp.scss';
 // import { useHistory } from 'react-router-dom';
 
@@ -16,6 +18,7 @@ export const MainApp = () => {
 	// const history = useHistory();
 	const [messages, setMessages] = useState<MessageType[]>([]);
 	const [inputText, setInputText] = useState('');
+	const username = useSelector(selectUsername);
 
 	useEffect(() => {
 		socket.on('message', (data: any) => {
@@ -43,7 +46,7 @@ export const MainApp = () => {
 				const message = {
 					id: `${new Date()}`,
 					text: inputText,
-					from: ['a', 'b', 'c'][Math.floor(Math.random() * 3)],
+					from: username,
 				};
 				newList.push(message);
 
@@ -61,11 +64,16 @@ export const MainApp = () => {
 		<div id='mainApp'>
 			<div id='chatContainer'>
 				{messages.map((message: MessageType) => (
-					<div key={message.id} className={message.from === 'b' ? 'mine' : ''}>
+					<div
+						key={message.id}
+						className={message.from === username ? 'mine' : ''}
+					>
+						<p>{message.id}</p>
 						<div>
 							<p>{message.from}</p>
 							{message.text}
 						</div>
+						<p>{message.id}</p>
 					</div>
 				))}
 			</div>
