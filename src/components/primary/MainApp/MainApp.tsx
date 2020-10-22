@@ -1,45 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { SendIcon } from '../../../assets/icons/SendIcon';
 import io from 'socket.io-client';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectUsername } from '../../../redux/slices/userInfo';
+import {
+	selectMessages,
+	addMessage,
+	Message,
+} from '../../../redux/slices/messages';
 import { v4 as uuid } from 'uuid';
 import './MainApp.scss';
-
-interface Message {
-	id: string;
-	text: string;
-	from: string;
-	date: Date;
-}
 
 const socket = io('http://localhost:5000');
 
 export const MainApp = () => {
-	const [messages, setMessages] = useState<Message[]>([]);
+	const dispatch = useDispatch();
+	const messages = useSelector(selectMessages);
 	const [inputText, setInputText] = useState('');
 	const username = useSelector(selectUsername);
 
 	useEffect(() => {
-		socket.on('message', (message: any) => {
-			setMessages((oldMessages) => {
-				const newList = [...oldMessages];
-				if (
-					newList.length === 0 ||
-					newList[newList.length - 1].id !== message.id
-				) {
-					newList.push(message);
-				}
+		socket.on('message', (message: Message) => {
+			console.log('executed');
 
-				return newList;
-			});
+			dispatch(addMessage(message));
 		});
+
 		return () => {
 			socket.removeAllListeners();
 		};
-	}, []);
+	}, [dispatch]);
 
-	const formatMessageDate = (createdAt: Date) => {
+	const formatMessageDate = (createdAt: string) => {
 		const weekDays = ['Son', 'Mon', 'Tue', 'Wed', 'The', 'Fri', 'Sat'];
 		const months = [
 			'Jan',
@@ -71,16 +63,15 @@ export const MainApp = () => {
 
 		const currentWeekNumber = getWeekNumber(currentDate);
 		const messageWeekNumber = getWeekNumber(messageDate);
-
-		if (currentWeekNumber === messageWeekNumber) {
-			const weekDay = weekDays[messageDate.getDay()];
-			const month = months[messageDate.getMonth()];
-			return `${weekDay} ${month} ${messageDate.getDate()}`; // Mon 21 Oct
-		} else if (messageDate.getDate() === currentDate.getDate()) {
+		if (messageDate.getDate() === currentDate.getDate()) {
 			const hours = appendZero(messageDate.getHours());
 			const minutes = appendZero(messageDate.getMinutes());
 			const seconds = appendZero(messageDate.getSeconds());
 			return `${hours}:${minutes}:${seconds}`; // 15:22:50
+		} else if (currentWeekNumber === messageWeekNumber) {
+			const weekDay = weekDays[messageDate.getDay()];
+			const month = months[messageDate.getMonth()];
+			return `${weekDay} ${month} ${messageDate.getDate()}`; // Mon 21 Oct
 		} else {
 			const month = months[messageDate.getMonth()];
 			return `${messageDate.getDate()} ${month} ${messageDate.getFullYear()}`; // Oct 21 2020
@@ -89,23 +80,20 @@ export const MainApp = () => {
 
 	const onSubmit = (e: any) => {
 		e.preventDefault();
-		setMessages((oldMessages) => {
-			const newList = [...oldMessages];
-			if (inputText) {
-				const message: Message = {
-					id: uuid(),
-					text: inputText,
-					from: username,
-					date: new Date(),
-				};
-				newList.push(message);
 
-				socket.emit('message', message);
-			}
+		if (inputText) {
+			const message: Message = {
+				id: uuid(),
+				text: inputText,
+				from: username,
+				date: `${new Date()}`,
+			};
+			dispatch(addMessage(message));
+
+			socket.emit('message', message);
 
 			setInputText('');
-			return newList;
-		});
+		}
 
 		return false;
 	};
@@ -130,7 +118,7 @@ export const MainApp = () => {
 					</div>
 				))}
 			</div>
-			<form id='senderContainer' onSubmit={onSubmit}>
+			<form id='senderContainer' name='form' onSubmit={onSubmit}>
 				<input
 					placeholder='Type your message...'
 					value={inputText}
