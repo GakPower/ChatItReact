@@ -123,6 +123,7 @@ export const MainApp = () => {
 					placeholder='Type your message...'
 					value={inputText}
 					onChange={(e) => setInputText(e.target.value)}
+					autoFocus
 				/>
 				<button type='submit'>
 					<SendIcon />
