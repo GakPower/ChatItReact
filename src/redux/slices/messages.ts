@@ -23,12 +23,7 @@ export const messages = createSlice({
 			state: { array: Message[] },
 			action: { payload: Message; type: string }
 		) => {
-			console.log();
-
-			console.log({ before: state.array });
-
 			state.array = [...state.array, action.payload];
-			console.log({ after: state.array });
 		},
 	},
 });
