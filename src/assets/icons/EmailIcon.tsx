@@ -1,7 +1,7 @@
 import React from 'react';
 import { ClickableIcon } from './ClickableHOC/ClickableHOC';
 
-export const Icon = (props: any) => {
+const Icon = (props: any) => {
 	return (
 		<svg
 			version='1.1'
