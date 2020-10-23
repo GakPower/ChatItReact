@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SendIcon } from '../../../assets/icons/SendIcon';
+import { EmojiIcon } from '../../../assets/icons/EmojiIcon';
 import io from 'socket.io-client';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUsername } from '../../../redux/slices/userInfo';
@@ -9,6 +10,7 @@ import {
 	Message,
 } from '../../../redux/slices/messages';
 import { v4 as uuid } from 'uuid';
+import { getEmojis } from '../../../helpers/ServerUtils/App';
 import './MainApp.scss';
 
 const socket = io('http://localhost:5000');
@@ -16,13 +18,14 @@ const socket = io('http://localhost:5000');
 export const MainApp = () => {
 	const dispatch = useDispatch();
 	const messages = useSelector(selectMessages);
-	const [inputText, setInputText] = useState('');
 	const username = useSelector(selectUsername);
+	const [inputText, setInputText] = useState('');
+	const [emojiOpened, setEmojiOpened] = useState(false);
+	const [emojis, setEmojis] = useState([]);
 
 	useEffect(() => {
+		getEmojis().then((list) => setEmojis(list));
 		socket.on('message', (message: Message) => {
-			console.log('executed');
-
 			dispatch(addMessage(message));
 		});
 
@@ -78,9 +81,7 @@ export const MainApp = () => {
 		}
 	};
 
-	const onSubmit = (e: any) => {
-		e.preventDefault();
-
+	const onSubmit = () => {
 		if (inputText) {
 			const message: Message = {
 				id: uuid(),
@@ -101,7 +102,10 @@ export const MainApp = () => {
 	const isMine = (message: Message) => message.from === username;
 
 	return (
-		<div id='mainApp'>
+		<div
+			id='mainApp'
+			style={{ gridTemplateRows: emojiOpened ? '1fr 140px' : '1fr 40px' }}
+		>
 			<div id='chatContainer'>
 				{messages.map((message: Message) => (
 					<div
@@ -118,17 +122,41 @@ export const MainApp = () => {
 					</div>
 				))}
 			</div>
-			<form id='senderContainer' name='form' onSubmit={onSubmit}>
-				<input
-					placeholder='Type your message...'
-					value={inputText}
-					onChange={(e) => setInputText(e.target.value)}
-					autoFocus
-				/>
-				<button type='submit'>
+			<div
+				id='senderContainer'
+				onKeyPress={(event) => event.key === 'Enter' && onSubmit()}
+			>
+				<div id='senderField'>
+					<div>
+						<input
+							placeholder='Type your message...'
+							value={inputText}
+							onChange={(e) => setInputText(e.target.value)}
+							autoFocus
+						/>
+						<div className={emojiOpened ? '' : 'hidden'}>
+							{emojis.length &&
+								emojis.map((emoji) => (
+									<span
+										key={emoji}
+										onClick={() => {
+											setInputText((oldState) => `${oldState}${emoji}`);
+										}}
+									>
+										{emoji}
+									</span>
+								))}
+						</div>
+					</div>
+
+					<button onClick={() => setEmojiOpened((oldState) => !oldState)}>
+						<EmojiIcon />
+					</button>
+				</div>
+				<button onClick={() => onSubmit()}>
 					<SendIcon />
 				</button>
-			</form>
+			</div>
 		</div>
 	);
 };
