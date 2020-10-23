@@ -1,5 +1,5 @@
 const SERVER_IP = 'http://localhost:5000';
-const AUTH_PATH = `${SERVER_IP}/api/app`;
+const AUTH_PATH = `${SERVER_IP}/app`;
 export const getEmojis = async () => {
 	try {
 		const res = await fetch(`${AUTH_PATH}/emojis`, {
