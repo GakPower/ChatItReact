@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { joinUser } from '../../../helpers/ServerUtils';
+import { joinUser } from '../../../helpers/ServerUtils/Auth';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '../../../redux/slices/userInfo';

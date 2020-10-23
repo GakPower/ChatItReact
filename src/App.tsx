@@ -6,7 +6,7 @@ import { Login } from './components/primary/Login/Login';
 import { Join } from './components/primary/Join/Join';
 import { ForgotPass } from './components/primary/ForgotPass/ForgotPass';
 import { ResetPass } from './components/primary/ResetPass/ResetPass';
-import { isTokenValid, refreshToken } from './helpers/ServerUtils';
+import { isTokenValid, refreshToken } from './helpers/ServerUtils/Auth';
 import { MainApp } from './components/primary/MainApp/MainApp';
 import { PrivacyPolicy } from './components/primary/PrivacyPolicy/PrivacyPolicy';
 import { Footer } from './components/secondary/Footer/Footer';

@@ -1,7 +1,7 @@
 import React from 'react';
 import './NavBar.scss';
 import { Link } from 'react-router-dom';
-import { logout } from '../../../helpers/ServerUtils';
+import { logout } from '../../../helpers/ServerUtils/Auth';
 import { useSelector } from 'react-redux';
 import { selectUsername } from '../../../redux/slices/userInfo';
 import { LogoutIcon } from '../../../assets/icons/LogoutIcon';

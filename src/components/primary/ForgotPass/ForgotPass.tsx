@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { forgotPass } from '../../../helpers/ServerUtils';
+import { forgotPass } from '../../../helpers/ServerUtils/Auth';
 import { Link, useHistory } from 'react-router-dom';
 import './ForgotPass.scss';
 
