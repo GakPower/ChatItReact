@@ -11,4 +11,5 @@ To build the frontend of ChatIt I used:
     - SASS
     - Redux/Redux-Toolkit
     - Socket.io
+    - JWT
     - Many more...
