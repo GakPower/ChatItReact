@@ -1,45 +1,51 @@
-#joinContainer {
+#forgotPassContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     width: 90%;
-    max-width: 300px;
-    height: 400px;
+    max-width: 320px;
+    height: 80%;
+    max-height: 300px;
+    min-height: 250px;
     
     background-color: var(--primary);
     border-radius: 15px;
     border: 1px solid var(--borderColor);
 
-    h3 {
-        font-family: var(--primaryFont);
-        font-size: 2rem;
-        color: var(--accent);;
-    }
-
     form {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: space-evenly;
 
         width: 100%;
-        height: 75%;
-
+        height: 80%;
+        h3 {
+            font-family: var(--primaryFont);
+            font-size: 2rem;
+            color: var(--accent);
+        }
+        #desc {
+            font-size: .9rem;
+            color: var(--text);
+            margin-bottom: 5px;
+            text-align: center;
+        }
         #error {
             font-size: .7rem;
             color: var(--error);
             margin-top: 5px;
+            text-align: center;
         }
 
         & > button {
+            width: 40%;
+            height: 35px;
+
             margin-top: 20px;
             margin-bottom: 15px;
             padding: 0;
-
-            width: 40%;
-            height: 35px;
             
             background-color: var(--primaryLight);
             border: 1px solid var(--accentLowHighlight);
@@ -48,7 +54,7 @@
             font-family: var(--secondaryFont);
 
             cursor: pointer;
-
+            
             transition: box-shadow 300ms;
             
             &:hover {
@@ -69,26 +75,17 @@
         text-align: center;
 
         a {
-            padding: 4px 8px;
-
             color: var(--accentHighRipple);
             text-decoration: none;
+            padding: 4px 8px;
             border-radius: 5px;
-            transition:
-                background-color 200ms linear,
-                color 200ms linear;
+            transition: background-color 200ms linear,
+            color 200ms linear;
 
             &:hover {
                 color: var(--accent);
                 background-color: var(--accentLowHighlight);
             }
         }
-    }
-}
-
-@media only screen and (max-width: 250px) {
-    #joinContainer {
-        width: 95%;
-        height: 90%;
     }
 }

@@ -5,7 +5,7 @@
     justify-content: space-between;
 
     width: 85%;
-    height: 35px;
+    min-height: 35px;
 
     margin: 5px 0;
 
@@ -18,13 +18,13 @@
     transition: box-shadow 400ms;
 
     &:hover, &:focus-within {
-        box-shadow: 0 0 1px var(--accentHighRipple), inset 0 0 1px var(--accentHighRipple);
+        box-shadow: 0 0 2px var(--accent);
     }
     &.invalid {
-        box-shadow: 0 0 1px var(--error), inset 0 0 1px var(--error);
+        box-shadow: 0 0 2px var(--error);
     }
     &.valid {
-        box-shadow: 0 0 1px var(--success), inset 0 0 1px var(--success);
+        box-shadow: 0 0 2px var(--success);
     }
 
     input {
@@ -61,12 +61,14 @@
         padding: 0;
         cursor: pointer;
 
+        transition: box-shadow 400ms;
+
         &:focus {
             box-shadow: none;
         }
 
         &:hover {
-            box-shadow: 0 0 1px var(--accentHighlight), inset 0 0 1px var(--accentHighlight);
+            box-shadow: 0 0 2px var(--accent);
         }
     }
 }

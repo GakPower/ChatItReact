@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { joinUser } from '../../../ServerUtils';
+import { joinUser } from '../../../helpers/ServerUtils/Auth';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setUsername } from '../../../redux/slices/userInfo';
 import './Join.scss';
 
 interface FormInput {
@@ -12,6 +15,7 @@ interface FormInput {
 }
 
 export const Join = () => {
+	const dispatch = useDispatch();
 	const [shouldCheck, setShouldCheck] = useState(false);
 	const [disabled, setDisabled] = useState(false);
 
@@ -25,7 +29,11 @@ export const Join = () => {
 	const renderErrors = () => {
 		let error;
 		if (errors?.username) {
-			error = errors?.username?.message;
+			if (errors?.username?.type === 'validate') {
+				error = 'Username can not contain the "@" symbol';
+			} else {
+				error = errors?.username?.message;
+			}
 		} else if (errors?.email) {
 			error = errors?.email?.message;
 		} else if (errors?.password) {
@@ -33,7 +41,7 @@ export const Join = () => {
 		} else if (errors?.passConfirm) {
 			error = 'Passwords do not match';
 		}
-		return <p>{error}</p>;
+		return <p id='error'>{error}</p>;
 	};
 
 	const onSubmit = async ({
@@ -47,12 +55,16 @@ export const Join = () => {
 	}) => {
 		setDisabled(true);
 		setTimeout(async () => {
+			setDisabled(false);
 			const res = await joinUser({ username, email, password });
 
 			if (res.valid) {
+				dispatch(setUsername(username));
 				reset();
 				setShouldCheck(false);
-				// NAVIGATE TO APP
+
+				// NAVIGATE TO Login
+				// history.push('/login');
 			} else if (res.field) {
 				setError(res.field, {
 					type: 'manual',
@@ -61,7 +73,6 @@ export const Join = () => {
 			} else {
 				console.log({ res });
 			}
-			setDisabled(false);
 		}, 1000);
 	};
 
@@ -76,6 +87,7 @@ export const Join = () => {
 							value: 255,
 							message: 'Username is too long',
 						},
+						validate: (value: string) => value.indexOf('@') === -1,
 					})}
 					shouldCheck={shouldCheck}
 					invalid={errors?.username}
@@ -127,9 +139,7 @@ export const Join = () => {
 							value: 255,
 							message: 'Confirm Password is too long',
 						},
-						validate: {
-							value: (value) => value === passwordWatch,
-						},
+						validate: (value) => value === passwordWatch,
 					})}
 					shouldCheck={shouldCheck}
 					invalid={errors?.passConfirm}
@@ -147,6 +157,9 @@ export const Join = () => {
 					Join
 				</button>
 			</form>
+			<p id='login'>
+				Already got an account? <Link to='/login'>Login</Link>
+			</p>
 		</div>
 	);
 };

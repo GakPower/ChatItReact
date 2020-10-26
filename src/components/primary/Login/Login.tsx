@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
-import { loginUser, logPosts } from '../../../ServerUtils';
+import { loginUser } from '../../../helpers/ServerUtils/Auth';
+import { Link } from 'react-router-dom';
 import './Login.scss';
+import { useDispatch } from 'react-redux';
+import { setUsername } from '../../../redux/slices/userInfo';
 
 interface FormInput {
 	emailUsername: string;
@@ -10,6 +13,7 @@ interface FormInput {
 }
 
 export const Login = () => {
+	const dispatch = useDispatch();
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset, setError } = useForm<
 		FormInput
@@ -20,7 +24,7 @@ export const Login = () => {
 		if (errors?.emailUsername) {
 			error = errors?.emailUsername?.message;
 		}
-		return <p>{error}</p>;
+		return <p id='error'>{error}</p>;
 	};
 
 	const isEmail = (input: string) => {
@@ -37,20 +41,22 @@ export const Login = () => {
 	}) => {
 		setDisabled(true);
 		setTimeout(async () => {
+			setDisabled(false);
 			const res = await loginUser(
 				{ emailUsername, password },
 				isEmail(emailUsername)
 			);
 			if (res.valid) {
 				reset();
+				dispatch(setUsername(res.username));
 				// NAVIGATE TO APP
+				// history.push('/');
 			} else {
 				setError('emailUsername', {
 					type: 'manual',
 					message: res.message,
 				});
 			}
-			setDisabled(false);
 		}, 1000);
 	};
 
@@ -70,12 +76,29 @@ export const Login = () => {
 					type='password'
 					placeholder='Password'
 				/>
+				<Link to='/forgotPassword' id='forgotPass'>
+					Forgot your password?
+				</Link>
 				{renderErrors()}
 				<button type='submit' disabled={disabled}>
 					Login
 				</button>
 			</form>
-			<button onClick={() => logPosts()}>Posts</button>
+
+			{/* <div id='separator' />
+
+			<button
+				onClick={async () => {
+					const link = await getGoogleAuthLink();
+					window.open(link, '_self');
+				}}
+			>
+				Login with Google
+			</button> */}
+
+			<p id='join'>
+				Don't have an account? <Link to='/join'>Join us</Link>
+			</p>
 		</div>
 	);
 };

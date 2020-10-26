@@ -1,0 +1,37 @@
+#footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--primary);
+    border-top: 1px solid var(--borderColor);
+
+    a {
+        color: var(--accentHighRipple);
+        font-size: .8rem;
+        text-decoration: none;
+        padding: 5px 5px;
+        border-radius: 5px;
+        transition: background-color 200ms linear,
+        color 200ms linear;
+
+        &:hover {
+            color: var(--accent);
+            background-color: var(--accentLowHighlight);
+        }
+    }
+
+    #contacts {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #separator {
+        width: 2px;
+        height: 50%;
+        background-color: var(--accentHighlight);
+        border-radius: 20px;
+        margin: 0 15px;
+    }
+}

@@ -1,0 +1,177 @@
+#mainApp {
+    width: 90%;
+    height: 80vh;
+
+    display: grid;
+
+    background-color: var(--primary);
+    border: 1px solid var(--borderColor);
+    border-radius: 15px;
+
+    transition: grid-template-rows 300ms linear;
+
+    #chatContainer {
+        margin: 5px 4px 5px 0;
+        border-radius: 15px 15px 0 0;
+
+        overflow-y: auto;
+        max-height: 100%;
+
+        #message {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            padding: 5px 10px;
+            
+            color: var(--textWhite);
+
+            word-break: break-all;
+
+            & > p {
+                opacity: 0;
+                margin: 0 10px;
+                word-break: normal;
+
+                font-size: .75rem;
+
+                transition: opacity 500ms 500ms;
+            }
+            &:hover > p {
+                opacity: 1;
+            }
+            
+
+            div {
+                display: flex;
+                flex-direction: column;
+                border-radius: 0 15px 15px 15px;
+                background-color:rgb(63, 63, 63);
+                padding: 5px 10px;
+
+                p {
+                    font-size: .7rem;
+                }
+            }
+            &.mine {
+                justify-content: flex-end;
+
+                div {
+                    text-align: end;
+                    background-color: var(--accentSecondary);
+                    max-width: 90%;
+                    border-radius: 15px 0 15px 15px;
+                }
+
+                &:hover + p {
+                    opacity: 1;
+                } 
+            }
+        }
+    }
+
+    #senderContainer {
+        display: grid;
+        grid-template-columns: 1fr 70px;
+        align-items: center;
+        justify-content: space-between;
+ 
+        border-radius: 0 0 15px 15px;
+        border-top: 1px solid var(--borderColor);
+
+        overflow: hidden;
+
+        #senderField {
+            height: 100%;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 40px;
+            align-items: center;
+            justify-content: space-between;
+
+            border-radius: 0 15px 15px 15px;
+            border-right: 1px solid var(--borderColor);
+
+            background-color: var(--primaryLight);
+
+            & > div {
+                display: grid;
+                grid-template-rows: 40px 1fr;
+                justify-content: space-between;
+                input {
+                    padding-left: 10px;
+                    border: 0;
+                    
+                    background-color: transparent;
+                    color: var(--text);
+                    font-family: var(--secondaryFont);
+                    font-size: 1.1rem;
+                }
+
+                div {
+                    display: flex;
+                    flex-wrap: wrap;
+                    height: 100px;
+                    opacity: 1;
+                    border-top: 1px solid var(--accentRipple);
+                    overflow-y: scroll;
+
+                    transition: height 300ms linear,
+                    opacity 300ms linear;
+
+                    &.hidden {
+                        height: 0;
+                        opacity: 0;
+                    }
+
+                    span {
+                        margin: 2px;
+                        font-size: 1.3rem;
+                        cursor: pointer;
+                    }
+                    
+                }
+            }
+            
+            button {
+                svg {
+                    fill: var(--accentRipple);
+                    transition: fill 250ms linear;
+                }
+    
+                &:hover svg {
+                    fill: var(--accent);
+                } 
+            }
+            
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background-color: transparent;
+            border: 0;
+            padding: 0;
+            height: 100%;
+            cursor: pointer;
+
+            svg {
+                fill: var(--accentRipple);
+                transition: fill 250ms linear;
+            }
+
+            &:hover svg {
+                fill: var(--accent);
+            } 
+        }
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    #senderContainer input {
+        width: 90%;
+    }
+    
+}
