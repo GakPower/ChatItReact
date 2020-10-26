@@ -1,4 +1,4 @@
-const SERVER_IP = 'http://localhost:5000';
+const SERVER_IP = 'https://chatit.site';
 const AUTH_PATH = `${SERVER_IP}/app`;
 export const getEmojis = async () => {
 	try {

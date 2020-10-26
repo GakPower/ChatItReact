@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-const SERVER_IP = 'http://localhost:5000';
+const SERVER_IP = 'https://chatit.site';
 const AUTH_PATH = `${SERVER_IP}/auth`;
 
 const cookies = new Cookies();

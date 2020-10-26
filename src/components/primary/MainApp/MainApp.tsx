@@ -13,7 +13,7 @@ import { v4 as uuid } from 'uuid';
 import { getEmojis } from '../../../helpers/ServerUtils/App';
 import './MainApp.scss';
 
-const socket = io('http://localhost:5000');
+const socket = io();
 
 export const MainApp = () => {
 	const dispatch = useDispatch();
