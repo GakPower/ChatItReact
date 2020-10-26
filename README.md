@@ -4,6 +4,8 @@ Everything from the authentication system, password recovery and the main chat o
 
 This repository is the frontend part of a full-stack project which means that it is just **half** of the project. Click [here](https://github.com/GakPower/ChatItReactBackend) to check the backend code.
 
+You can use ChatIt [here](https://chatit.site)
+
 ## Tools
 To build the frontend of ChatIt I used:
 
@@ -14,3 +16,8 @@ To build the frontend of ChatIt I used:
     - Socket.io
     - JWT
     - Many more...
+    
+## Developer Tools
+    - ES6
+    - Customized Eslint
+    - Prettier
