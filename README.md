@@ -3,6 +3,10 @@ This repository is the frontend part of a full-stack project.
 
 ChatIt is a responsive website where you can login and chat in a public group room.
 
+Everything from the authentication system, password recovery and the main chat of the application are build from scratch.
+
+This repository is just half of the project. Click [here](https://github.com/GakPower/ChatItReactBackend) to check the backend code.
+
 ## Tools
 To build the frontend of ChatIt I used:
 
