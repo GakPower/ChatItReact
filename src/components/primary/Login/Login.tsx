@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Field } from '../../secondary/Field/Field';
 import { useForm } from 'react-hook-form';
 import { loginUser } from '../../../helpers/ServerUtils/Auth';
-import { Link } from 'react-router-dom';
-import './Login.scss';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUsername } from '../../../redux/slices/userInfo';
+import './Login.scss';
 
 interface FormInput {
 	emailUsername: string;
@@ -13,6 +13,7 @@ interface FormInput {
 }
 
 export const Login = () => {
+	const history = useHistory();
 	const dispatch = useDispatch();
 	const [disabled, setDisabled] = useState(false);
 	const { register, handleSubmit, errors, reset, setError } = useForm<
@@ -84,6 +85,12 @@ export const Login = () => {
 					Login
 				</button>
 			</form>
+
+			<div id='separator' />
+
+			<button onClick={() => history.push('/loginGuest')}>
+				Login as a Guest
+			</button>
 
 			{/* <div id='separator' />
 
