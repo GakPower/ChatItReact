@@ -1,6 +1,6 @@
 import Cookies from 'universal-cookie';
-const SERVER_IP = 'https://chatit.site';
-const AUTH_PATH = `${SERVER_IP}/auth`;
+import { SERVER_URL } from './../getEnvVariables';
+const AUTH_PATH = `${SERVER_URL}/auth`;
 
 const cookies = new Cookies();
 
@@ -61,27 +61,26 @@ export const loginUser = async (
 		return error;
 	}
 };
-
-export const logPosts = async () => {
+export const loginGuestUser = async ({ username }: { username: string }) => {
 	try {
-		const res = await fetch(`${AUTH_PATH}/posts`, {
-			method: 'GET',
+		const res = await fetch(`${AUTH_PATH}/loginGuest`, {
+			method: 'POST',
 			headers: {
-				Authorization: 'Bearer ' + cookies.get('token'),
 				'Content-Type': 'application/json',
 			},
+			body: JSON.stringify({ username }),
 		});
-		const { valid, data, expired, token, message } = await res.json();
-		if (valid) {
-			console.log({ data });
-		} else if (expired) {
-			setTokenCookie(token);
-			await logPosts();
-		} else if (message) {
-			console.log({ message });
+
+		const resJson = await res.json();
+		if (resJson.valid) {
+			setTokenCookie(resJson.token);
 		}
+
+		return resJson;
 	} catch (error) {
-		console.log(error);
+		console.log({ error });
+
+		return error;
 	}
 };
 

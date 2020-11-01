@@ -11,9 +11,10 @@ import {
 } from '../../../redux/slices/messages';
 import { v4 as uuid } from 'uuid';
 import { getEmojis } from '../../../helpers/ServerUtils/App';
+import { SOCKET_IO_URL } from '../../../helpers/getEnvVariables';
 import './MainApp.scss';
 
-const socket = io();
+const socket = io(SOCKET_IO_URL);
 
 export const MainApp = () => {
 	const dispatch = useDispatch();

@@ -1,5 +1,5 @@
-const SERVER_IP = 'https://chatit.site';
-const AUTH_PATH = `${SERVER_IP}/app`;
+import { SERVER_URL } from './../getEnvVariables';
+const AUTH_PATH = `${SERVER_URL}/app`;
 export const getEmojis = async () => {
 	try {
 		const res = await fetch(`${AUTH_PATH}/emojis`, {
