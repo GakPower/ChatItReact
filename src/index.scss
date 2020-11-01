@@ -16,3 +16,21 @@ code {
   margin: 0;
   outline: none;
 }
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ff8a6671 #393a39;
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+*::-webkit-scrollbar-track {
+  background: #393a39;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #ff8a6671;
+  border-radius: 20px;
+  border: 3px solid #393a39;
+}
