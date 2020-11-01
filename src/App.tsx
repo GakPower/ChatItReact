@@ -16,6 +16,7 @@ import {
 	setLoggedIn,
 	setUsername,
 } from './redux/slices/userInfo';
+import { LoginGuest } from './components/primary/LoginGuest/LoginGuest';
 // import { GoogleAuth } from './components/primary/GoogleAuth/GoogleAuth';
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
 			<div id='switchContainer'>
 				<Switch>
 					{publicRoute('/login', Login)}
+					{publicRoute('/loginGuest', LoginGuest)}
 					{publicRoute('/join', Join)}
 					{publicRoute('/forgotPassword', ForgotPass)}
 					{publicRoute('/resetPassword/:id', ResetPass)}
